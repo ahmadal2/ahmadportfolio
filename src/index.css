@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +10,9 @@
   --mode-bg: linear-gradient(90deg, #000000 0%, #0A0F1F 40%, #000000 70%, #000000 100%);
   --mode-gradient: linear-gradient(#000000, #000000, #000000, #000000);
   --mode-primary: #000000;
+  --mode-highlight: #3b82f6; /* blue-500 */
+  --mode-secondary: #8b5cf6; /* purple-500 */
+  --mode-accent: #06b6d4; /* cyan-500 */
 
   /* Smooth transition for all properties */
   --transition-speed: 0.8s;
@@ -43,10 +48,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Add smooth scroll behavior */
 html {
   scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -269,6 +273,32 @@ body * {
 
   .container-width {
     @apply max-w-7xl mx-auto;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-rainbow {
+    animation: rainbow 3s linear infinite;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
   }
 }
 

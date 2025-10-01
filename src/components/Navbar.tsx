@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
       gradientTo: '#2F80ED'
     },
     { 
-      name: "Portfolio", 
+      name: "Projects", 
       href: "portfolio",
       gradientFrom: '#FF9966',
       gradientTo: '#FF5E62'

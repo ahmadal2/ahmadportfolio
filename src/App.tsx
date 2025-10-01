@@ -81,8 +81,8 @@ function App() {
     <>
       <Hero />
       <About />
-      <Projects />
       <Skills />
+      <Projects />
       <Contact />
     </>
   )

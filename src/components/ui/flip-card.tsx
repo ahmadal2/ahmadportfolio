@@ -22,7 +22,7 @@ export default function CardFlip({
     'MongoDB Integration',
     'Authentication & JWT',
   ],
-  color = '#10b981'
+  color = '#2563eb'
 }: CardFlipProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 

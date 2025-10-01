@@ -1,7 +1,8 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import {ChevronDown, Mail} from 'lucide-react'
+import { ChevronDown, Mail } from 'lucide-react'
+import { RainbowButton } from "@/components/ui/rainbow-button"
 
 const Hero: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -140,7 +141,7 @@ const Hero: React.FC = () => {
            I'm Ahmad, a creative Full-Stack developer & designer crafting modern web experiences with design-driven frontends and scalable backends.
           </motion.p>
 
-          {/* CTA Button - Single Get In Touch */}
+          {/* CTA Button - Single Get In Touch with Modern Glass Effect */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,12 +150,25 @@ const Hero: React.FC = () => {
           >
             <motion.button
               onClick={scrollToContact}
-              className="magnetic group relative px-6 py-3 md:px-8 md:py-4 glass-strong rounded-xl md:rounded-2xl text-white font-medium text-base md:text-lg overflow-hidden"
+              className="relative group px-6 py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl text-white font-medium text-base md:text-lg overflow-hidden z-10"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center space-x-2">
+              {/* Modern Glass Effect */}
+              <div className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden">
+                {/* Glass background */}
+                <div className="absolute inset-0 bg-[#0f172a] backdrop-blur-xl" />
+                
+                {/* Glass effect layers */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-white/5 backdrop-blur-md border border-white/20" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent backdrop-blur-sm" />
+                
+                {/* Inner glow */}
+                <div className="absolute inset-0 rounded-xl md:rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.3)] group-hover:shadow-[0_0_40px_rgba(139,92,246,0.5)] transition-all duration-300" />
+              </div>
+              
+              {/* Button content */}
+              <div className="relative flex items-center space-x-2 z-10">
                 <Mail size={18} className="md:w-5 md:h-5" />
                 <span>Get In Touch</span>
               </div>
@@ -163,22 +177,7 @@ const Hero: React.FC = () => {
         </motion.div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.button
-            onClick={scrollToNext}
-            className="magnetic flex flex-col items-center space-x-2 text-white/60 hover:text-blue-500 transition-colors duration-300"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <span className="text-xs md:text-sm font-light">Get in touch</span>
-            <ChevronDown size={20} className="md:w-6 md:h-6" />
-          </motion.button>
-        </motion.div>
+       
       </motion.div>
     </section>
   )

@@ -121,9 +121,9 @@ const Skills: React.FC = () => {
     >
       <div className="container-width space-y-12 md:space-y-20">
         <motion.h2
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 text-center mb-8 md:mb-16"
         >
           My Skills
@@ -151,24 +151,28 @@ const Skills: React.FC = () => {
 
         {/* View Content */}
         {viewMode === "traditional" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {flipCardSkills.map((skill, index) => (
-              <motion.div
-                key={skill.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-              >
-                <CardFlip
-                  title={skill.title}
-                  subtitle={skill.subtitle}
-                  description={skill.description}
-                  features={skill.features}
-                  color={skill.color}
-                />
-              </motion.div>
-            ))}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full max-w-6xl">
+              {flipCardSkills.map((skill, index) => (
+                <div key={skill.title} className="flex justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="w-full flex justify-center"
+                  >
+                    <CardFlip
+                      title={skill.title}
+                      subtitle={skill.subtitle}
+                      description={skill.description}
+                      features={skill.features}
+                      color={skill.color}
+                    />
+                  </motion.div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -238,24 +242,6 @@ const Skills: React.FC = () => {
                 fadeOutColor="#000000"
                 ariaLabel="Technology partners"
               />
-            </div>
-          </div>
-        </div>
-
-        {/* Coming Soon Projects Section */}
-        <div className="mt-16 md:mt-32">
-          <div className="text-center mb-10 md:mb-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-3 md:mb-4">
-              Coming Soon Projects
-            </h3>
-            <p className="text-white/80 text-sm md:text-base max-w-2xl mx-auto px-4">
-              Exciting new projects are in development. Stay tuned for innovative solutions coming your way.
-            </p>
-          </div>
-          
-          <div className="flex justify-center">
-            <div className="w-full max-w-4xl">
-              <GlassIcons items={comingSoonProjects} className="custom-class" />
             </div>
           </div>
         </div>

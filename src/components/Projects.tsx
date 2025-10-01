@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ExternalLink, Eye } from 'lucide-react';
+import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
 import { HoverSlider, HoverSliderImage, HoverSliderImageWrap, TextStaggerHover } from "@/components/ui/animated-slideshow";
 import { LampDemo } from "@/components/ui/lamp";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { GlassIcons } from "@/components/ui/glass-icons";
 
 interface Project {
   id: number;
@@ -252,6 +254,33 @@ const Projects: React.FC = () => {
               </div>
             </HoverSlider>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Coming Soon Projects Section */}
+      <section className="py-16 md:py-32 relative overflow-hidden px-4">
+        <div className="container-width">
+          <div className="text-center mb-10 md:mb-16">
+            <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-3 md:mb-4">
+              Coming Soon Projects
+            </h3>
+            <p className="text-white/80 text-sm md:text-base max-w-2xl mx-auto px-4">
+              Exciting new projects are in development. Stay tuned for innovative solutions coming your way.
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <div className="w-full max-w-4xl">
+              <GlassIcons items={[
+                { icon: <FiFileText />, color: 'blue', label: 'E-Commerce Platform', comment: 'New features coming soon!' },
+                { icon: <FiCloud />, color: 'indigo', label: 'Cloud Dashboard', comment: 'Coming Soon' },
+                { icon: <FiBarChart2 />, color: 'green', label: 'Analytics Suite', comment: 'Coming Soon' },
+                { icon: <FiHeart />, color: 'red', label: 'Health Tracker', comment: 'Coming Soon' },
+                { icon: <FiBook />, color: 'purple', label: 'Learning App', comment: 'Coming Soon' },
+                { icon: <FiEdit />, color: 'orange', label: 'Content Editor', comment: 'Coming Soon' },
+              ]} className="custom-class" />
+            </div>
+          </div>
         </div>
       </section>
 
