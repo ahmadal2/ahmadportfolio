@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface CinematicIntroProps {
@@ -15,18 +15,18 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
     if (isSkipping) return;
     
     if (stage === 1) {
-      const timer = setTimeout(() => setStage(2), 3000);
+      const timer = setTimeout(() => setStage(2), 2000); // Reduced time
       return () => clearTimeout(timer);
     }
     if (stage === 2) {
-      const timer = setTimeout(() => setStage(3), 2500);
+      const timer = setTimeout(() => setStage(3), 1500); // Reduced time
       return () => clearTimeout(timer);
     }
     if (stage === 3) {
       const timer = setTimeout(() => {
         onComplete();
         setIsSkipping(false);
-      }, 800);
+      }, 500); // Reduced time
       return () => clearTimeout(timer);
     }
   }, [stage, onComplete, isSkipping]);
@@ -39,9 +39,9 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
             clearInterval(interval);
             return 100;
           }
-          return prev + 2;
+          return prev + 4; // Increased step for faster progress
         });
-      }, 50);
+      }, 30); // Reduced interval
       return () => clearInterval(interval);
     }
   }, [stage, isSkipping]);
@@ -50,8 +50,34 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
     setIsSkipping(true);
     setShowSkip(false);
     setStage(3);
-    setTimeout(() => onComplete(), 200);
+    setTimeout(() => onComplete(), 100); // Reduced timeout
   }, [onComplete]);
+
+  // Memoize floating elements to prevent re-creation
+  const floatingElements = useMemo(() => (
+    [...Array(4)].map((_, i) => ( // Reduced number of elements
+      <motion.div
+        key={i}
+        className="absolute w-px h-px rounded-full bg-cyan-400"
+        style={{
+          left: `${20 + Math.random() * 60}%`,
+          top: `${20 + Math.random() * 60}%`,
+          boxShadow: '0 0 4px #06b6d4',
+        }}
+        animate={{
+          y: [0, -20, 0], // Reduced animation distance
+          opacity: [0, 0.6, 0],
+          scale: [1, 1.2, 1] // Reduced scale animation
+        }}
+        transition={{
+          duration: 3 + Math.random() * 1, // Reduced duration
+          repeat: Infinity,
+          delay: Math.random() * 2,
+          ease: "easeInOut"
+        }}
+      />
+    ))
+  ), []);
 
   return (
     <div 
@@ -60,51 +86,51 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
         background: '#0a0a0f',
       }}
     >
-      {/* Sophisticated Grid Pattern */}
+      {/* Sophisticated Grid Pattern - Simplified */}
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-10" // Reduced opacity
         style={{
           backgroundImage: `
-            linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px',
+          backgroundSize: '80px 80px', // Increased grid size
         }}
       />
 
-      {/* Minimal Ambient Glow */}
+      {/* Minimal Ambient Glow - Simplified */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
+          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full" // Reduced size
           style={{
-            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.15), transparent 70%)',
-            filter: 'blur(80px)',
+            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) transparent 70%)', // Reduced opacity
+            filter: 'blur(60px)', // Reduced blur
           }}
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.1, 1], // Reduced scale animation
+            opacity: [0.2, 0.3, 0.2], // Reduced opacity animation
           }}
           transition={{
-            duration: 8,
+            duration: 6, // Reduced duration
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full"
+          className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full" // Reduced size
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%)',
-            filter: 'blur(80px)',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) transparent 70%)', // Reduced opacity
+            filter: 'blur(60px)', // Reduced blur
           }}
           animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1.1, 1, 1.1], // Reduced scale animation
+            opacity: [0.2, 0.3, 0.2], // Reduced opacity animation
           }}
           transition={{
-            duration: 8,
+            duration: 6, // Reduced duration
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 1
+            delay: 0.5 // Reduced delay
           }}
         />
       </div>
@@ -116,15 +142,15 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={skipIntro}
-          className="absolute top-8 right-8 px-5 py-2.5 text-sm font-medium text-white/60 hover:text-white transition-all duration-300 z-50 group"
+          className="absolute top-8 right-8 px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-all duration-300 z-50 group"
           style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '8px',
+            background: 'rgba(255, 255, 255, 0.02)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            borderRadius: '6px',
           }}
           whileHover={{ 
-            background: 'rgba(255, 255, 255, 0.06)',
-            borderColor: 'rgba(6, 182, 212, 0.3)'
+            background: 'rgba(255, 255, 255, 0.04)',
+            borderColor: 'rgba(6, 182, 212, 0.2)'
           }}
           whileTap={{ scale: 0.98 }}
         >
@@ -139,16 +165,16 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }} // Reduced duration
             className="absolute inset-0 flex flex-col items-center justify-center"
           >
             {/* Ultra Minimal Spinner */}
-            <div className="relative w-32 h-32 mb-12">
+            <div className="relative w-24 h-24 mb-8"> {/* Reduced size */}
               {/* Outer Ring */}
               <motion.div
                 className="absolute inset-0 rounded-full"
                 style={{
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)', // Reduced opacity
                 }}
               />
               
@@ -160,13 +186,13 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
                   r="48%"
                   fill="none"
                   stroke="url(#progressGradient)"
-                  strokeWidth="2"
+                  strokeWidth="1.5" // Reduced stroke width
                   strokeLinecap="round"
                   strokeDasharray={`${2 * Math.PI * 62}`}
                   strokeDashoffset={`${2 * Math.PI * 62 * (1 - progress / 100)}`}
                   style={{ 
-                    transition: 'stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    filter: 'drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))'
+                    transition: 'stroke-dashoffset 0.2s cubic-bezier(0.4, 0, 0.2, 1)', // Reduced transition time
+                    filter: 'drop-shadow(0 0 4px rgba(6, 182, 212, 0.2))' // Reduced shadow
                   }}
                 />
                 <defs>
@@ -180,12 +206,12 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
             
             {/* Minimal Progress Indicator */}
             <motion.div 
-              className="flex items-center gap-3"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="flex items-center gap-2" // Reduced gap
+              animate={{ opacity: [0.4, 0.8, 0.4] }} // Reduced opacity animation
+              transition={{ duration: 1.5, repeat: Infinity }} // Reduced duration
             >
               <div className="w-1 h-1 rounded-full bg-cyan-500" />
-              <span className="text-sm font-light text-white/50 tracking-wider">
+              <span className="text-xs font-light text-white/40 tracking-wider"> {/* Reduced font size and opacity */}
                 LOADING
               </span>
               <div className="w-1 h-1 rounded-full bg-cyan-500" />
@@ -201,23 +227,23 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }} // Reduced duration
             className="absolute inset-0 flex flex-col items-center justify-center"
           >
             {/* Main Title - Ultra Clean */}
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 15, opacity: 0 }} // Reduced animation distance
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} // Reduced delay and duration
               className="relative"
             >
               <h1 
-                className="text-7xl md:text-8xl lg:text-9xl font-light tracking-tighter text-center"
+                className="text-6xl md:text-7xl lg:text-8xl font-light tracking-tighter text-center" // Reduced font sizes
                 style={{
                   background: 'linear-gradient(135deg, #ffffff 0%, #e0f2fe 50%, #bae6fd 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.05em',
+                  letterSpacing: '-0.03em', // Reduced letter spacing
                 }}
               >
                 AHMAD
@@ -227,12 +253,12 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="h-px mt-4 mx-auto"
+                transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }} // Reduced delay and duration
+                className="h-px mt-3 mx-auto" // Reduced margin
                 style={{
-                  width: '60%',
+                  width: '50%', // Reduced width
                   background: 'linear-gradient(90deg, transparent, #06b6d4, transparent)',
-                  boxShadow: '0 0 10px rgba(6, 182, 212, 0.5)',
+                  boxShadow: '0 0 6px rgba(6, 182, 212, 0.3)', // Reduced shadow
                 }}
               />
             </motion.div>
@@ -241,11 +267,10 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.6 }}
-              className="mt-8 text-sm font-light text-white/40 tracking-widest uppercase"
+              transition={{ delay: 0.5, duration: 0.4 }} // Reduced delay and duration
+              className="mt-6 text-sm font-light text-white/30 tracking-widest uppercase" // Reduced margin and opacity
             >
               Creative Developer & Designer
-
             </motion.div>
           </motion.div>
         )}
@@ -257,7 +282,7 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
           <motion.div
             initial={{ opacity: 1 }}
             animate={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }} // Reduced duration
             className="absolute inset-0 bg-[#0a0a0f]"
           />
         )}
@@ -265,28 +290,7 @@ const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) => {
 
       {/* Minimal Floating Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-px h-px rounded-full bg-cyan-400"
-            style={{
-              left: `${20 + Math.random() * 60}%`,
-              top: `${20 + Math.random() * 60}%`,
-              boxShadow: '0 0 4px #06b6d4',
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 0.6, 0],
-              scale: [1, 1.5, 1]
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
+        {floatingElements}
       </div>
     </div>
   );

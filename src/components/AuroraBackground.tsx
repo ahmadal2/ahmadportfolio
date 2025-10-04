@@ -136,10 +136,13 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
     const ctn = ctnDom.current;
     if (!ctn) return;
 
+    // Reduce WebGL rendering quality for better performance
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias: false, // Disable antialiasing for performance
+      powerPreference: "low-power", // Use low power GPU
+      preserveDrawingBuffer: false
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -159,7 +162,7 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
       }
     }
     
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true }); // Passive listener for performance
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
@@ -187,8 +190,17 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
     ctn.appendChild(gl.canvas);
 
     let animateId = 0;
+    let lastTime = 0;
+    const fps = 30; // Limit to 30 FPS for better performance
+    const interval = 1000 / fps;
+    
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
+      
+      // Throttle animation updates
+      if (t - lastTime < interval) return;
+      lastTime = t;
+      
       const { speed: currentSpeed = speed } = propsRef.current;
       if (program) {
         program.uniforms.uTime.value = t * 0.001 * currentSpeed;

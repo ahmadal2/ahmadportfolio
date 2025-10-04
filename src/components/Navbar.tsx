@@ -18,17 +18,18 @@ const Navbar: React.FC = () => {
       gradientFrom: '#56CCF2',
       gradientTo: '#2F80ED'
     },
-    { 
-      name: "Projects", 
-      href: "portfolio",
-      gradientFrom: '#FF9966',
-      gradientTo: '#FF5E62'
-    },
+   
     { 
       name: "Skills", 
       href: "skills",
       gradientFrom: '#80FF72',
       gradientTo: '#7EE8FA'
+    },
+     { 
+      name: "Projects", 
+      href: "portfolio",
+      gradientFrom: '#FF9966',
+      gradientTo: '#FF5E62'
     },
     { 
       name: "Contact", 
