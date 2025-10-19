@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
@@ -15,7 +14,7 @@ const CustomCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false)
   const requestRef = useRef<number>()
   const previousTimeRef = useRef<number>()
-  const throttleDelay = 16 // ~60fps throttling
+  const throttleDelay = 32 // ~30fps throttling (increased from 16 for better performance)
 
   const updateMousePosition = useCallback((e: MouseEvent) => {
     mousePosition.x.set(e.clientX - 10)
