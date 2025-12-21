@@ -142,7 +142,7 @@ const Hero: React.FC = () => {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-base md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-light px-4"
           >
-           I'm Ahmad, a creative Full-Stack developer & designer crafting modern web experiences with design-driven frontends and scalable backends.
+           ahmad full stack developer
           </motion.p>
 
           {/* CTA Button - Liquid Glass Effect */}

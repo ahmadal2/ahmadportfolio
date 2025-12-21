@@ -10,7 +10,6 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import SmoothScroll from './components/SmoothScroll'
 import CinematicIntro from './components/CinematicIntro'
-import CookieConsent from './components/CookieConsent'
 import CustomCursor from './components/CustomCursor'
 import AuroraBackground from './components/AuroraBackground'
 
@@ -145,7 +144,6 @@ function App() {
           </motion.div>
         </AnimatePresence>
         
-        <CookieConsent />
       </div>
     </SmoothScroll>
   )
