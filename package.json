@@ -1,13 +1,4 @@
 {
-<<<<<<< HEAD
-  "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.13"
-  },
-  "dependencies": {
-    "gsap": "^3.13.0"
-=======
   "name": "ahmad-portfolio",
   "private": true,
   "version": "0.0.0",
@@ -17,6 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -58,6 +52,5 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.5.3",
     "vite": "^5.4.2"
->>>>>>> 144495d631f213c79bad107de9d0c8ef063777d9
   }
 }
