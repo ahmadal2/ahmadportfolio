@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,9 +10,12 @@
   --mode-bg: linear-gradient(90deg, #000000 0%, #0A0F1F 40%, #000000 70%, #000000 100%);
   --mode-gradient: linear-gradient(#000000, #000000, #000000, #000000);
   --mode-primary: #000000;
+  --mode-highlight: #3b82f6; /* blue-500 */
+  --mode-secondary: #8b5cf6; /* purple-500 */
+  --mode-accent: #06b6d4; /* cyan-500 */
 
   /* Smooth transition for all properties */
-  --transition-speed: 0.8s;
+  --transition-speed: 0.3s;
 
   /* Rainbow button colors */
   --color-1: 0 100% 63%;
@@ -43,10 +48,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Add smooth scroll behavior */
 html {
   scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -54,7 +58,7 @@ body {
   overflow-x: hidden;
   background: var(--mode-bg);
   background-attachment: fixed;
-  color: #ffffff; /* Globale weiße Textfarbe */
+  color: #ffffff;
   transition: background var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1),
               color var(--transition-speed) ease;
   -webkit-font-smoothing: antialiased;
@@ -72,7 +76,7 @@ body * {
 .bg-remix {
   background: var(--mode-bg);
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  animation: gradientShift 30s ease infinite;
   position: relative;
   overflow: hidden;
 }
@@ -113,7 +117,7 @@ body * {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 1;
+  opacity: 0.7;
   transition: opacity 1s ease-in-out;
 }
 
@@ -132,14 +136,14 @@ body * {
 .book-flip-enter {
   transform: rotateY(-90deg) scale(0.9);
   opacity: 0;
-  filter: blur(10px);
+  filter: blur(5px);
 }
 
 .book-flip-enter-active {
   transform: rotateY(0deg) scale(1);
   opacity: 1;
   filter: blur(0);
-  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .book-flip-exit {
@@ -151,8 +155,8 @@ body * {
 .book-flip-exit-active {
   transform: rotateY(90deg) scale(0.9);
   opacity: 0;
-  filter: blur(10px);
-  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: blur(5px);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Enhanced animated text changes – MIT WEIßEM FALLBACK */
@@ -172,8 +176,8 @@ body * {
 }
 
 .animated-text {
-  animation: textSlideUp 4s ease-in-out infinite;
-  color: #ffffff; /* Fallback: immer weiß sichtbar */
+  animation: textSlideUp 6s ease-in-out infinite;
+  color: #ffffff;
   background: linear-gradient(90deg, var(--mode-highlight), var(--mode-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -184,11 +188,11 @@ body * {
 }
 
 .animated-text:nth-child(2) {
-  animation-delay: 4s;
+  animation-delay: 6s;
 }
 
 .animated-text:nth-child(3) {
-  animation-delay: 8s;
+  animation-delay: 12s;
 }
 
 /* Custom scrollbar with enhanced design */
@@ -217,32 +221,32 @@ body * {
 /* Enhanced Glassmorphism utilities */
 @layer utilities {
   .glass {
-    background: rgba(10, 15, 31, 0.5);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(10, 15, 31, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    color: #ffffff; /* Text in glass immer weiß */
+    color: #ffffff;
   }
 
   .glass:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   }
 
   .glass-strong {
-    background: rgba(0, 168, 255, 0.15);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(0, 168, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    background: rgba(0, 168, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 168, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.4s ease;
     color: #ffffff;
   }
 
   .text-gradient {
-    color: #ffffff; /* WICHTIG: Fallback-Farbe */
+    color: #ffffff;
     background: linear-gradient(135deg, var(--mode-highlight), var(--mode-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -269,6 +273,32 @@ body * {
 
   .container-width {
     @apply max-w-7xl mx-auto;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-rainbow {
+    animation: rainbow 3s linear infinite;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
   }
 }
 
@@ -311,8 +341,8 @@ body * {
 /* Enhanced smooth animations */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   color: #ffffff;
 }
 
@@ -324,13 +354,13 @@ body * {
 /* Enhanced particle background */
 .particle {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   background: linear-gradient(45deg, var(--mode-highlight), var(--mode-secondary));
   border-radius: 50%;
-  opacity: 0.7;
-  animation: particle 25s linear infinite;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  opacity: 0.5;
+  animation: particle 30s linear infinite;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
 
 @keyframes particle {
@@ -339,11 +369,11 @@ body * {
     opacity: 0;
   }
   10% {
-    opacity: 0.7;
+    opacity: 0.5;
     transform: translateY(90vh) rotate(36deg) scale(1);
   }
   90% {
-    opacity: 0.7;
+    opacity: 0.5;
     transform: translateY(-90vh) rotate(324deg) scale(1);
   }
   100% {
@@ -359,19 +389,19 @@ body * {
 
 .custom-cursor {
   position: fixed;
-  width: 24px;
-  height: 24px;
-  background: radial-gradient(circle, rgba(0, 255, 255, 0.8), rgba(0, 255, 255, 0.4));
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.6), rgba(0, 255, 255, 0.3));
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.1s ease, background 0.3s ease;
+  transition: transform 0.1s ease, background 0.2s ease;
   mix-blend-mode: difference;
 }
 
 .custom-cursor.hover {
-  transform: scale(2.5);
-  background: radial-gradient(circle, rgba(0, 255, 255, 1), rgba(0, 255, 255, 0.6));
+  transform: scale(2);
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.8), rgba(0, 255, 255, 0.4));
 }
 
 /* Enhanced loading animations */

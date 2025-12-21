@@ -1,7 +1,7 @@
-
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import {ChevronDown, Mail} from 'lucide-react'
+import { Mail } from 'lucide-react'
+import { LiquidButton } from '@/components/ui/liquid-glass-button'
 
 const Hero: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -13,24 +13,24 @@ const Hero: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
 
-  // Animated subtitle texts
-  const subtitles = [
+  // Animated subtitle texts - memoized to prevent unnecessary re-renders
+  const subtitles = useMemo(() => [
     "Creative Full-Stack Developer & Designer",
-  "Digital Experience & Innovation Architect",
-  "Frontend Specialist with Pixel-Perfect UI/UX",
-  "Backend & API Engineer for Scalable Web Apps",
-  "User Experience Visionary & Interaction Designer"
-  ]
+    "Digital Experience & Innovation Architect",
+    "Frontend Specialist with Pixel-Perfect UI/UX",
+    "Backend & API Engineer for Scalable Web Apps",
+    "User Experience Visionary & Interaction Designer"
+  ], [])
 
   const [currentSubtitle, setCurrentSubtitle] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSubtitle((prev) => (prev + 1) % subtitles.length)
-    }, 3000)
+    }, 4000) // Increased interval to reduce CPU usage
 
     return () => clearInterval(interval)
-  }, [])
+  }, [subtitles.length])
 
   const scrollToNext = () => {
     const nextSection = document.querySelector('#about')
@@ -46,29 +46,34 @@ const Hero: React.FC = () => {
     }
   }
 
+  // Memoize floating elements to prevent re-creation on each render
+  const floatingElements = useMemo(() => {
+    return [...Array(6)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 md:w-1.5 md:h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-20"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -15, 0],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 3 + Math.random() * 2,
+          repeat: Infinity,
+          delay: Math.random() * 2,
+        }}
+      />
+    ))
+  }, [])
+
   return (
     <section id="hero" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Floating Elements - Reduced on mobile */}
+      {/* Floating Elements - Reduced number and complexity for better performance */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-30"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {floatingElements}
       </div>
 
       {/* Main Content */}
@@ -79,14 +84,14 @@ const Hero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="space-y-6 md:space-y-8"
         >
           {/* Greeting */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
             className="text-base md:text-lg text-white/70 font-light tracking-wide"
           >
             Hello, I'm
@@ -96,7 +101,7 @@ const Hero: React.FC = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
             className="text-5xl xs:text-6xl md:text-8xl lg:text-9xl font-bold text-white drop-shadow-2xl"
           >
             Ahmad
@@ -106,7 +111,7 @@ const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
             className="relative h-12 xs:h-16 md:h-20 overflow-hidden"
           >
             {subtitles.map((subtitle, index) => (
@@ -121,7 +126,7 @@ const Hero: React.FC = () => {
                   opacity: index === currentSubtitle ? 1 : 0 
                 }}
                 transition={{ 
-                  duration: 0.6, 
+                  duration: 0.5, 
                   ease: "easeInOut"
                 }}
               >
@@ -134,50 +139,31 @@ const Hero: React.FC = () => {
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
             className="text-base md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-light px-4"
           >
-           I'm Ahmad, a creative Full-Stack developer & designer crafting modern web experiences with design-driven frontends and scalable backends.
+           ahmad full stack developer
           </motion.p>
 
-          {/* CTA Button - Single Get In Touch */}
+          {/* CTA Button - Liquid Glass Effect */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
             className="flex justify-center items-center pt-6 md:pt-8"
           >
-            <motion.button
+            <LiquidButton
               onClick={scrollToContact}
-              className="magnetic group relative px-6 py-3 md:px-8 md:py-4 glass-strong rounded-xl md:rounded-2xl text-white font-medium text-base md:text-lg overflow-hidden"
+              className="px-6 py-3 md:px-8 md:py-4 text-white font-medium text-base md:text-lg rounded-xl md:rounded-2xl"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center space-x-2">
+              <div className="flex items-center space-x-2 z-10">
                 <Mail size={18} className="md:w-5 md:h-5" />
                 <span>Get In Touch</span>
               </div>
-            </motion.button>
+            </LiquidButton>
           </motion.div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.button
-            onClick={scrollToNext}
-            className="magnetic flex flex-col items-center space-x-2 text-white/60 hover:text-blue-500 transition-colors duration-300"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <span className="text-xs md:text-sm font-light">Get in touch</span>
-            <ChevronDown size={20} className="md:w-6 md:h-6" />
-          </motion.button>
         </motion.div>
       </motion.div>
     </section>

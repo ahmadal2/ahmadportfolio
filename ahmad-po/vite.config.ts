@@ -33,6 +33,12 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, './src')
       }
+    },
+    server: {
+      headers: {
+        // More permissive CSP for development
+        'Content-Security-Policy': "script-src 'self' 'unsafe-inline' 'unsafe-eval'; object-src 'none';"
+      }
     }
   }
 })

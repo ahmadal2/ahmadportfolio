@@ -1,38 +1,42 @@
-
 import React, { useEffect, useRef } from 'react'
+import Lenis from 'lenis'
 
 interface SmoothScrollProps {
   children: React.ReactNode
 }
 
 const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
-  const lenisRef = useRef<any>(null)
+  const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
-    if (typeof window !== 'undefined' && (window as any).Lenis) {
-      lenisRef.current = new (window as any).Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
-      })
+    // Initialize Lenis for smooth scrolling with optimized settings
+    const lenis = new Lenis({
+      lerp: 0.08, // Reduced for smoother but more performant scroll
+      smoothWheel: true,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+    })
 
-      function raf(time: number) {
-        lenisRef.current?.raf(time)
-        requestAnimationFrame(raf)
-      }
+    lenisRef.current = lenis
 
-      requestAnimationFrame(raf)
+    // Optimize scroll event handling with requestAnimationFrame
+    let rafId: number
+
+    const raf = (time: number) => {
+      lenis.raf(time)
+      rafId = requestAnimationFrame(raf)
     }
 
+    rafId = requestAnimationFrame(raf)
+
+    // Cleanup
     return () => {
-      lenisRef.current?.destroy()
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
+      if (lenisRef.current) {
+        lenisRef.current.destroy()
+      }
     }
   }, [])
 

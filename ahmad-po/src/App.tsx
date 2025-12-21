@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -21,17 +21,18 @@ function App() {
   const [isMobile, setIsMobile] = useState(false)
   const [darkMode, setDarkMode] = useState(true)
 
-  const sections = [
+  // Memoize sections to prevent unnecessary re-renders
+  const sections = useMemo(() => [
     { id: 'hero', name: 'Home' },
     { id: 'about', name: 'About' },
     { id: 'skills', name: 'Skills' },
     { id: 'certifications', name: 'Awards' },
     { id: 'contact', name: 'Contact' }
-  ]
+  ], [])
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode)
-  }
+  const toggleTheme = useCallback(() => {
+    setDarkMode(prev => !prev)
+  }, [])
 
   useEffect(() => {
     // Check if intro has been shown before
@@ -47,45 +48,46 @@ function App() {
     }
     
     checkIfMobile()
-    window.addEventListener('resize', checkIfMobile)
+    window.addEventListener('resize', checkIfMobile, { passive: true }) // Passive listener for performance
     
     return () => {
       window.removeEventListener('resize', checkIfMobile)
     }
   }, [])
 
-  const handleIntroComplete = () => {
+  const handleIntroComplete = useCallback(() => {
     setShowIntro(false)
     localStorage.setItem('introShown', 'true')
-  }
+  }, [])
 
-  const replayIntro = () => {
+  const replayIntro = useCallback(() => {
     setShowIntro(true)
     localStorage.removeItem('introShown')
-  }
+  }, [])
 
-  const navigateToSection = (index: number) => {
+  const navigateToSection = useCallback((index: number) => {
     setCurrentSection(index)
     const section = document.querySelector(`#${sections[index].id}`)
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
     }
-  }
+  }, [sections])
+
+  // Memoize main content to prevent unnecessary re-renders
+  const mainContent = useMemo(() => (
+    <>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
+    </>
+  ), [])
 
   // Show intro if enabled
   if (showIntro) {
     return <CinematicIntro onComplete={handleIntroComplete} />
   }
-
-  const mainContent = (
-    <>
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Contact />
-    </>
-  )
 
   return (
     <SmoothScroll>
@@ -94,8 +96,8 @@ function App() {
         <AuroraBackground
           colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
           blend={0.5}
-          amplitude={1.0}
-          speed={0.5}
+          amplitude={0.5} // Reduced amplitude for better performance
+          speed={0.2} // Reduced speed for better performance
         />
         <ScrollProgress />
         
@@ -130,7 +132,7 @@ function App() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }} // Reduced duration for better performance
             className="book-page content-wrapper"
           >
             <Navbar />
