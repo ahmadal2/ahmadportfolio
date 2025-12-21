@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 # Dependencies
 node_modules/
+=======
+# Logs
+logs
+*.log
+>>>>>>> 144495d631f213c79bad107de9d0c8ef063777d9
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+<<<<<<< HEAD
 
 # Production builds
 dist/
@@ -110,3 +117,22 @@ typings/
 
 # Windows files
 Thumbs.db
+=======
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+>>>>>>> 144495d631f213c79bad107de9d0c8ef063777d9
