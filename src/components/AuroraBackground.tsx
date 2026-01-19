@@ -119,14 +119,14 @@ interface AuroraBackgroundProps {
 }
 
 export default function AuroraBackground(props: AuroraBackgroundProps) {
-  const { 
+  const {
     colorStops = ['#0000FF', '#00FF00', '#00FFFF'], // Blue → Green → Cyan
     amplitude = 0.15, // Reduced amplitude for better performance
     blend = 0.3, // Reduced blend for better performance
     speed = 0.05, // Reduced speed for better performance
     className = ""
   } = props;
-  
+
   const propsRef = useRef<AuroraBackgroundProps>(props);
   propsRef.current = props;
 
@@ -163,8 +163,12 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
         program.uniforms.uResolution.value = [width, height];
       }
     }
-    
-    window.addEventListener('resize', resize, { passive: true }); // Passive listener for performance
+
+    const handleResize = () => {
+      resize();
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
@@ -197,26 +201,26 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
     let lastTime = 0;
     const fps = 15; // Limit to 15 FPS for better performance (reduced from 20)
     const interval = 1000 / fps;
-    
+
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
-      
+
       // Throttle animation updates
       if (t - lastTime < interval) return;
       lastTime = t;
-      
+
       const { speed: currentSpeed = speed } = propsRef.current;
-      if (program) {
-        program.uniforms.uTime.value = t * 0.001 * currentSpeed;
-        program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? amplitude;
-        program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-        const stops = propsRef.current.colorStops ?? colorStops;
-        program.uniforms.uColorStops.value = stops.map((hex: string) => {
-          const c = new Color(hex);
-          return [c.r, c.g, c.b];
-        });
-        renderer.render({ scene: mesh });
-      }
+      if (document.hidden || !program) return;
+
+      program.uniforms.uTime.value = t * 0.001 * currentSpeed;
+      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? amplitude;
+      program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
+      const stops = propsRef.current.colorStops ?? colorStops;
+      program.uniforms.uColorStops.value = stops.map((hex: string) => {
+        const c = new Color(hex);
+        return [c.r, c.g, c.b];
+      });
+      renderer.render({ scene: mesh });
     };
 
     // ⚡ SOFORT STARTEN — KEINE VERZÖGERUNG!
@@ -226,14 +230,18 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
 
     return () => {
       cancelAnimationFrame(animateId);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', handleResize);
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }
       // Clean up WebGL context properly
-      if (gl.getExtension('WEBGL_lose_context')) {
-        gl.getExtension('WEBGL_lose_context')?.loseContext();
+      const loseContext = gl.getExtension('WEBGL_lose_context');
+      if (loseContext) {
+        loseContext.loseContext();
       }
+
+      // Clear references
+      program = undefined;
     };
   }, []); // 👈 Nur einmal mounten — kein Abhängigkeits-Array!
 

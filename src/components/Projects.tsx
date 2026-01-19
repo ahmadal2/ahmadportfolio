@@ -1,10 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ExternalLink, Eye } from 'lucide-react';
 import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
-import { HoverSlider, HoverSliderImage, HoverSliderImageWrap, TextStaggerHover } from "@/components/ui/animated-slideshow";
 import { LampDemo } from "@/components/ui/lamp";
-import { RainbowButton } from "@/components/ui/rainbow-button";
 import { GlassIcons } from "@/components/ui/glass-icons";
 
 interface Project {
@@ -39,7 +34,7 @@ const Projects: React.FC = () => {
       title: "Carwebsite (AhmadLux)",
       description: "Premium Autohaus-Website mit eleganten Animationen, Fahrzeugkatalog, Detailseiten und Kontaktformularen. Responsive Design mit modernen UI-Elementen für eine luxuriöse Benutzererfahrung.",
       technologies: ["React", "Tailwind CSS", "Framer Motion", "JavaScript", "CSS3"],
-      image: "/images/pro-foto/ahmadlux.png",      
+      image: "/images/pro-foto/ahmadlux.png",
       liveUrl: "https://ahmadlux.netlify.app/",
       gradientFrom: "#a955ff",
       gradientTo: "#ea51ff"
@@ -49,7 +44,7 @@ const Projects: React.FC = () => {
       title: "Wetter-Website",
       description: "Moderne Wettervorhersage-Anwendung mit 5-Tage-Prognose, Standortsuche, interaktiven Karten und detaillierten Wetterdaten. Responsive Design mit dynamischen Hintergrundanimationen.",
       technologies: ["React", "OpenWeather API", "Tailwind CSS", "Geolocation", "Chart.js"],
-      image: "images/pro-foto/weather.png", 
+      image: "images/pro-foto/weather.png",
       liveUrl: "https://weatherweb122.netlify.app/#/",
       gradientFrom: "#80FF72",
       gradientTo: "#7EE8FA"
@@ -81,7 +76,7 @@ const Projects: React.FC = () => {
       {/* Projects Portfolio Section */}
       <section id="portfolio" ref={ref} className="py-16 md:py-32 section-padding relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/20 pointer-events-none" />
-        
+
         <div className="container-width relative px-4">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -93,7 +88,7 @@ const Projects: React.FC = () => {
               Meine Projekte
             </h2>
             <p className="text-base md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed px-4">
-              Hier sind einige meiner neuesten Projekte, die meine Fähigkeiten in Full-Stack-Entwicklung, 
+              Hier sind einige meiner neuesten Projekte, die meine Fähigkeiten in Full-Stack-Entwicklung,
               UI/UX-Design und Problemlösung demonstrieren.
             </p>
           </motion.div>
@@ -107,7 +102,7 @@ const Projects: React.FC = () => {
           >
             <HoverSlider className="min-h-[400px] md:min-h-[500px] place-content-center p-0 md:px-0">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12">
-                
+
                 {/* Project Titles */}
                 <div className="flex flex-col space-y-3 md:space-y-4 w-full md:w-1/2">
                   <h4 className="text-xl md:text-2xl font-bold text-white mb-2">Projekt-Portfolio</h4>
@@ -159,7 +154,7 @@ const Projects: React.FC = () => {
                       </HoverSliderImage>
                     ))}
                   </HoverSliderImageWrap>
-                  
+
                   {/* Project Info - Below Image with Glassmorphism */}
                   <motion.div
                     key={`info-${hoveredIndex}`}
@@ -170,7 +165,7 @@ const Projects: React.FC = () => {
                   >
                     {/* Glow Effect */}
                     <div className="pointer-events-none absolute inset-x-2 md:inset-x-3 -bottom-4 md:-bottom-6 top-[85%] md:top-[90%] rounded-[16px] md:rounded-[20px] bg-blue-400/20 blur-lg md:blur-xl shadow-[0_10px_20px_-4px_rgba(59,130,246,0.4)] md:shadow-[0_20px_40px_-8px_rgba(59,130,246,0.4)] z-0" />
-                    
+
                     {/* Glassmorphism Card */}
                     <div className={
                       "relative z-10 w-full overflow-hidden rounded-[16px] md:rounded-[20px] " +
@@ -201,7 +196,7 @@ const Projects: React.FC = () => {
                             {projects[hoveredIndex].description}
                           </p>
                         </div>
-                        
+
                         {/* Technologies Section */}
                         <div className="mb-4 md:mb-6">
                           <h6 className="text-white/90 font-semibold text-xs md:text-sm uppercase tracking-widest mb-3 md:mb-4">
@@ -209,7 +204,7 @@ const Projects: React.FC = () => {
                           </h6>
                           <div className="flex flex-wrap gap-1.5 md:gap-2 justify-center">
                             {projects[hoveredIndex].technologies.map((tech, techIndex) => (
-                              <span 
+                              <span
                                 key={techIndex}
                                 className="px-3 py-1.5 md:px-4 md:py-2 bg-white/15 backdrop-blur-md rounded-full text-xs md:text-sm text-white font-medium border border-white/30 shadow-lg hover:bg-white/25 hover:scale-105 transition-all duration-200"
                               >
@@ -226,9 +221,9 @@ const Projects: React.FC = () => {
                               href={projects[hoveredIndex].liveUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{ 
-                                '--gradient-from':' #80FF72', 
-                                '--gradient-to': '#7EE8FA' 
+                              style={{
+                                '--gradient-from': ' #80FF72',
+                                '--gradient-to': '#7EE8FA'
                               } as React.CSSProperties}
                               className="relative w-[60px] h-[40px] md:w-[80px] md:h-[50px] bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-500 hover:w-[180px] md:hover:w-[240px] hover:shadow-none group cursor-pointer border border-white/30"
                             >
@@ -268,7 +263,7 @@ const Projects: React.FC = () => {
               Exciting new projects are in development. Stay tuned for innovative solutions coming your way.
             </p>
           </div>
-          
+
           <div className="flex justify-center">
             <div className="w-full max-w-4xl">
               <GlassIcons items={[
@@ -287,11 +282,11 @@ const Projects: React.FC = () => {
       {/* Lamp Section - UNTER Projects */}
       <section className="relative">
         <LampDemo />
-        
+
       </section>
 
       {/* Are you ready? Your website is the next */}
-     
+
     </>
   );
 };

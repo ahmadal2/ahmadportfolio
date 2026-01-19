@@ -2,21 +2,21 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export type LogoItem =
   | {
-      node: React.ReactNode;
-      href?: string;
-      title?: string;
-      ariaLabel?: string;
-    }
+    node: React.ReactNode;
+    href?: string;
+    title?: string;
+    ariaLabel?: string;
+  }
   | {
-      src: string;
-      alt?: string;
-      href?: string;
-      title?: string;
-      srcSet?: string;
-      sizes?: string;
-      width?: number;
-      height?: number;
-    };
+    src: string;
+    alt?: string;
+    href?: string;
+    title?: string;
+    srcSet?: string;
+    sizes?: string;
+    width?: number;
+    height?: number;
+  };
 
 export interface LogoLoopProps {
   logos: LogoItem[];
@@ -39,9 +39,6 @@ const ANIMATION_CONFIG = {
   MIN_COPIES: 2,
   COPY_HEADROOM: 2
 } as const;
-
-const toCssLength = (value?: number | string): string | undefined =>
-  typeof value === 'number' ? `${value}px` : (value ?? undefined);
 
 const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(Boolean).join(' ');
 
@@ -273,7 +270,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               'inline-flex items-center',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+              'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
             )}
             aria-hidden={!!(item as any).href && !(item as any).ariaLabel}
           >
@@ -287,7 +284,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+              'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
             )}
             src={(item as any).src}
             srcSet={(item as any).srcSet}
@@ -369,11 +366,40 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         <div
           ref={trackRef}
           className={cx(
-            'flex w-max',
+            'flex w-max items-center py-8 relative',
             fadeOut &&
-              'mask-image-[linear-gradient(to_right,transparent_0%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_10%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_90%,transparent_100%)]'
+            'mask-image-[linear-gradient(to_right,transparent_0%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_10%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_90%,transparent_100%)]'
           )}
         >
+          {/* Liquid Track Background */}
+          <div className="absolute inset-y-4 left-0 right-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+            <svg className="absolute inset-0 w-full h-full overflow-visible">
+              <defs>
+                <filter id="liquid-track-glow">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="2">
+                    <animate attributeName="baseFrequency" values="0.015;0.025;0.015" dur="15s" repeatCount="indefinite" />
+                  </feTurbulence>
+                  <feDisplacementMap in="SourceGraphic" scale="10" />
+                </filter>
+              </defs>
+              <rect
+                width="100%"
+                height="100%"
+                fill="none"
+                stroke="white"
+                strokeWidth="1"
+                strokeDasharray="4 8"
+                className="opacity-10"
+                filter="url(#liquid-track-glow)"
+              />
+            </svg>
+          </div>
+
+          {/* Refractive Glow Nodes */}
+          <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+            <div className="absolute -inset-x-20 inset-y-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03),transparent_70%)] group-hover:bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)] transition-all duration-1000" />
+          </div>
+
           {logoLists}
         </div>
       </div>

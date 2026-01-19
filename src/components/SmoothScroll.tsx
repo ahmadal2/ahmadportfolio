@@ -11,8 +11,9 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   useEffect(() => {
     // Initialize Lenis for smooth scrolling with optimized settings
     const lenis = new Lenis({
-      lerp: 0.08, // Reduced for smoother but more performant scroll
+      lerp: 0.12, // Increased for snappier feel
       smoothWheel: true,
+      syncTouch: true, // Sync touch events
       orientation: 'vertical',
       gestureOrientation: 'vertical',
     })
@@ -40,7 +41,11 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     }
   }, [])
 
-  return <>{children}</>
+  return (
+    <div className="relative">
+      {children}
+    </div>
+  )
 }
 
 export default SmoothScroll

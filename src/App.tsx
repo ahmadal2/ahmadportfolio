@@ -4,14 +4,15 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
-import Projects from './components/Projects'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import SmoothScroll from './components/SmoothScroll'
 import CinematicIntro from './components/CinematicIntro'
 import CustomCursor from './components/CustomCursor'
+import DemoOne from './components/DemoOne'
 import AuroraBackground from './components/AuroraBackground'
+
 
 function App() {
   const [showIntro, setShowIntro] = useState(true)
@@ -25,7 +26,7 @@ function App() {
     { id: 'hero', name: 'Home' },
     { id: 'about', name: 'About' },
     { id: 'skills', name: 'Skills' },
-    { id: 'certifications', name: 'Awards' },
+    { id: 'demo-archive', name: 'Archive' },
     { id: 'contact', name: 'Contact' }
   ], [])
 
@@ -39,16 +40,16 @@ function App() {
     if (introShown === 'true') {
       setShowIntro(false)
     }
-    
+
     // Check if device is mobile
     const checkIfMobile = () => {
       const mobile = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       setIsMobile(mobile)
     }
-    
+
     checkIfMobile()
     window.addEventListener('resize', checkIfMobile, { passive: true }) // Passive listener for performance
-    
+
     return () => {
       window.removeEventListener('resize', checkIfMobile)
     }
@@ -78,7 +79,7 @@ function App() {
       <Hero />
       <About />
       <Skills />
-      <Projects />
+      <DemoOne />
       <Contact />
     </>
   ), [])
@@ -90,19 +91,21 @@ function App() {
 
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-remix overflow-hidden">
+      <div className="relative min-h-screen bg-remix overflow-x-hidden">
         {/* Aurora Background */}
         <AuroraBackground
-          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+          colorStops={["#3DFF54", "#A3C4F0", "#297BFF"]}
           blend={0.5}
+
           amplitude={0.5} // Reduced amplitude for better performance
           speed={0.2} // Reduced speed for better performance
         />
+
         <ScrollProgress />
-        
+
         {/* Only show custom cursor on non-mobile devices */}
         {!isMobile && <CustomCursor />}
-        
+
         {/* Book Navigation */}
         <div className="book-nav">
           {sections.map((section, index) => (
@@ -112,8 +115,16 @@ function App() {
               onClick={() => navigateToSection(index)}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
-              title={section.name}
-            />
+            >
+              {currentSection === index && (
+                <motion.div
+                  layoutId="active-nav-glow"
+                  className="absolute inset-0 bg-cyan-400 blur-md opacity-30 rounded-full"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+            </motion.div>
           ))}
         </div>
 
@@ -126,7 +137,7 @@ function App() {
         >
           🎬 Replay Intro
         </motion.button>
-        
+
         <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
@@ -135,15 +146,15 @@ function App() {
             className="book-page content-wrapper"
           >
             <Navbar />
-            
+
             <main>
               {mainContent}
             </main>
-            
+
             <Footer />
           </motion.div>
         </AnimatePresence>
-        
+
       </div>
     </SmoothScroll>
   )
