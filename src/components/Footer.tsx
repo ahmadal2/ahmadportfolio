@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
             >
               <h3 className="text-3xl font-bold text-white mb-4">AH</h3>
               <p className="text-white/70 leading-relaxed">
-                Crafting innovative web solutions with passion and precision. 
+                Crafting innovative web solutions with passion and precision.
                 Transforming ideas into exceptional digital experiences.
               </p>
             </motion.div>
@@ -93,9 +93,9 @@ const Footer: React.FC = () => {
                     key={link.name}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 0.1 * (sectionIndex + 1) + 0.05 * linkIndex 
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1 * (sectionIndex + 1) + 0.05 * linkIndex
                     }}
                     viewport={{ once: true }}
                   >
@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
           <div className="text-sm text-white/60">
             © {currentYear} Ahmad. All rights reserved.
           </div>
-          
+
           <div className="flex items-center space-x-6 text-sm text-white/60">
             <button className="magnetic hover:text-apple-blue transition-colors duration-300">
               Privacy Policy
@@ -140,9 +140,7 @@ const Footer: React.FC = () => {
             <button className="magnetic hover:text-apple-blue transition-colors duration-300">
               Terms of Service
             </button>
-            <button className="magnetic hover:text-apple-blue transition-colors duration-300">
-              Cookies
-            </button>
+
           </div>
         </motion.div>
 
