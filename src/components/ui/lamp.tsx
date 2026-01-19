@@ -2,42 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { RainbowButton } from "@/components/ui/rainbow-button";
-
-export function LampDemo() {
-  return (
-    <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        Are you ready? <br /> Your website is the next
-      </motion.h1>
-      {/* Placing the RainbowButton under the heading but still within the lamp container */}
-      <div className="flex justify-center mt-8">
-        <RainbowButton 
-          onClick={() => {
-            // Scroll to contact section
-            const contactSection = document.querySelector('#contact');
-            if (contactSection) {
-              contactSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          aria-label="Get in touch with Ahmad"
-          className="px-10 py-6 text-xl h-16" // Bigger button with larger text and height
-        >
-          Get in Touch
-        </RainbowButton>
-      </div>
-    </LampContainer>
-  );
-}
 
 export const LampContainer = ({
   children,

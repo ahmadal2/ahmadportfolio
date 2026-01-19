@@ -11,6 +11,8 @@ import SmoothScroll from './components/SmoothScroll'
 import CinematicIntro from './components/CinematicIntro'
 import CustomCursor from './components/CustomCursor'
 import DemoOne from './components/DemoOne'
+import ModernLEDSeparator from './components/ModernLEDSeparator'
+import LampSection from './components/LampSection'
 import AuroraBackground from './components/AuroraBackground'
 
 
@@ -80,6 +82,8 @@ function App() {
       <About />
       <Skills />
       <DemoOne />
+      <ModernLEDSeparator />
+      <LampSection />
       <Contact />
     </>
   ), [])

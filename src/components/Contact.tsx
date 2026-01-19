@@ -35,10 +35,10 @@ const Contact: React.FC = () => {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-48 h-48 md:w-96 md:h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 md:w-[32rem] md:h-[32rem] bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
-        <div className="absolute top-1/2 right-1/3 w-40 h-40 md:w-80 md:h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "4s" }}></div>
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 md:w-[32rem] md:h-[32rem] bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute top-1/2 right-1/3 w-40 h-40 md:w-80 md:h-80 bg-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "4s" }}></div>
       </div>
-      
+
       <div className="container-width relative z-10">
         {/* Section Header */}
         <motion.div
@@ -67,19 +67,19 @@ const Contact: React.FC = () => {
             {/* Liquid glass effect layers */}
             <div className="absolute inset-0 rounded-3xl">
               {/* Base layer with subtle gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-blue-500/5 to-purple-500/5 backdrop-blur-2xl"></div>
-              
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-blue-500/5 to-cyan-500/5 backdrop-blur-2xl"></div>
+
               {/* Animated liquid effect */}
               <div className="absolute inset-0 opacity-30">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-cyan-400/10 to-transparent animate-pulse"></div>
                 <div className="absolute top-1/4 left-0 w-full h-1/3 bg-gradient-to-r from-cyan-400/5 via-transparent to-blue-400/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute bottom-1/4 left-0 w-full h-1/4 bg-gradient-to-r from-blue-400/5 via-transparent to-purple-400/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute bottom-1/4 left-0 w-full h-1/4 bg-gradient-to-r from-blue-400/5 via-transparent to-cyan-400/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
               </div>
-              
+
               {/* Highlight edges */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/20 to-transparent opacity-20 pointer-events-none"></div>
             </div>
-            
+
             {/* Content */}
             <div className="relative p-8 md:p-12 text-center">
               <div className="mb-8">
@@ -114,15 +114,15 @@ const Contact: React.FC = () => {
                 >
                   {/* Rainbow border effect */}
                   <div className="absolute inset-0 rounded-2xl bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] bg-[length:400%] animate-rainbow opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   {/* Liquid glass effect */}
                   <div className="absolute inset-0.5 rounded-xl glass backdrop-blur-lg bg-black/50"></div>
-                  
+
                   {/* Gmail icon with modern styling */}
                   <svg className="w-6 h-6 relative z-10" viewBox="0 0 24 24">
-                    <path fill="#EA4335" d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21l-9-7.5L3 21V3h10.5l7.5 6V4.5c0-.85.65-1.5 1.5-1.5H24z"/>
-                    <path fill="#34A853" d="M3 21l9-7.5L21 21H3z"/>
-                    <path fill="#FBBC05" d="M3 3l9 7.5L21 3H3z"/>
+                    <path fill="#EA4335" d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21l-9-7.5L3 21V3h10.5l7.5 6V4.5c0-.85.65-1.5 1.5-1.5H24z" />
+                    <path fill="#34A853" d="M3 21l9-7.5L21 21H3z" />
+                    <path fill="#FBBC05" d="M3 3l9 7.5L21 3H3z" />
                   </svg>
                   <span className="relative z-10">Open in Gmail</span>
                 </motion.button>
@@ -146,16 +146,16 @@ const Contact: React.FC = () => {
                       >
                         {/* Modern rainbow border effect */}
                         <div className="absolute inset-0 rounded-2xl bg-[linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] bg-[length:400%] animate-rainbow opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
+
                         {/* Glass card background */}
                         <div className="absolute inset-0.5 rounded-xl glass backdrop-blur-lg bg-black/30 border border-white/10"></div>
-                        
+
                         {/* Icon with modern gradient effect */}
-                        <Icon className="w-8 h-8 relative z-10 group-hover:text-white transition-colors duration-300" 
-                              style={{ 
-                                filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))',
-                                transition: 'all 0.3s ease'
-                              }} />
+                        <Icon className="w-8 h-8 relative z-10 group-hover:text-white transition-colors duration-300"
+                          style={{
+                            filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))',
+                            transition: 'all 0.3s ease'
+                          }} />
                       </motion.a>
                     );
                   })}
@@ -169,26 +169,26 @@ const Contact: React.FC = () => {
                   <div className="absolute inset-0 rounded-2xl">
                     {/* Base layer with subtle gradient */}
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 backdrop-blur-xl rounded-2xl"></div>
-                    
+
                     {/* Animated liquid effect */}
                     <div className="absolute inset-0 opacity-40">
                       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent animate-pulse"></div>
                       <div className="absolute top-1/4 left-0 w-full h-1/3 bg-gradient-to-r from-cyan-400/30 via-transparent to-blue-400/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                     </div>
-                    
+
                     {/* Highlight edges */}
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/30 to-transparent opacity-30 pointer-events-none"></div>
                   </div>
-                  
+
                   {/* Rainbow Button */}
-                  <RainbowButton 
+                  <RainbowButton
                     onClick={handleEmailClick}
                     className="relative z-10 px-10 py-6 h-16 text-xl font-semibold rounded-2xl overflow-hidden"
                   >
                     <Mail className="w-6 h-6 mr-3" />
                     Contact Me
                   </RainbowButton>
-                  
+
                   {/* Liquid highlight effect */}
                   <div className="absolute top-0 left-0 w-full h-full rounded-2xl pointer-events-none">
                     <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-gradient-to-b from-white/40 to-transparent rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -196,7 +196,7 @@ const Contact: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Liquid highlight effect */}
             <div className="absolute top-0 left-0 w-full h-full rounded-3xl pointer-events-none">
               <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-gradient-to-b from-white/30 to-transparent rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-700"></div>
