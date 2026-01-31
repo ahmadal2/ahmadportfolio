@@ -116,6 +116,7 @@ interface AuroraBackgroundProps {
   blend?: number;
   speed?: number;
   className?: string;
+  isLowEnd?: boolean;
 }
 
 export default function AuroraBackground(props: AuroraBackgroundProps) {
@@ -124,7 +125,8 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
     amplitude = 0.15, // Reduced amplitude for better performance
     blend = 0.3, // Reduced blend for better performance
     speed = 0.05, // Reduced speed for better performance
-    className = ""
+    className = "",
+    isLowEnd = false
   } = props;
 
   const propsRef = useRef<AuroraBackgroundProps>(props);
@@ -199,7 +201,7 @@ export default function AuroraBackground(props: AuroraBackgroundProps) {
 
     let animateId = 0;
     let lastTime = 0;
-    const fps = 15; // Limit to 15 FPS for better performance (reduced from 20)
+    const fps = isLowEnd ? 10 : 15; // Limit to 10 FPS for low-end, 15 for normal (already highly optimized)
     const interval = 1000 / fps;
 
     const update = (t: number) => {

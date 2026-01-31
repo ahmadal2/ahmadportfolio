@@ -1,6 +1,10 @@
+import React, { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { FiFileText, FiBook, FiHeart, FiCloud, FiEdit, FiBarChart2 } from 'react-icons/fi';
+import { Eye } from 'lucide-react';
 import { LampDemo } from "@/components/ui/lamp";
 import { GlassIcons } from "@/components/ui/glass-icons";
+import { HoverSlider, TextStaggerHover, HoverSliderImageWrap, HoverSliderImage } from "@/components/ui/animated-slideshow";
 
 interface Project {
   id: number;

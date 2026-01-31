@@ -991,3 +991,51 @@ body * {
   -webkit-backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* 2026 Animation & Performance Utilities */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes tilt {
+
+  0%,
+  100% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+
+  50% {
+    transform: rotate3d(1, 1, 0, 5deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-tilt {
+  animation: tilt 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Optimize heavy layers for GPU */
+.aurora-background,
+.glass,
+.glass-strong,
+.pc-card,
+.pc-contact-btn {
+  will-change: transform, opacity;
+}
