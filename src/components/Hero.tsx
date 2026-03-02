@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Mail } from 'lucide-react'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
 
@@ -10,8 +10,6 @@ const Hero: React.FC = () => {
     offset: ["start start", "end start"]
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
 
   // Animated subtitle texts - memoized to prevent unnecessary re-renders
   const subtitles = useMemo(() => [
@@ -32,12 +30,6 @@ const Hero: React.FC = () => {
     return () => clearInterval(interval)
   }, [subtitles.length])
 
-  const scrollToNext = () => {
-    const nextSection = document.querySelector('#about')
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contact')
@@ -98,72 +90,49 @@ const Hero: React.FC = () => {
           </motion.p>
 
           {/* Name - Ahmad */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl xs:text-6xl md:text-8xl lg:text-9xl font-bold text-white drop-shadow-2xl"
-          >
-            Ahmad
-          </motion.h1>
+          <div className="relative inline-block">
+            <motion.h1
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl xs:text-6xl md:text-[8rem] lg:text-[10rem] font-black leading-none tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-600 via-indigo-950 via-blue-600 to-cyan-400 animate-rainbow bg-[length:200%_auto]"
+            >
+              Ahmad
+            </motion.h1>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 1, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute -bottom-4 left-0 right-0 h-1 md:h-2 bg-gradient-to-r from-transparent via-cyan-300 to-transparent opacity-40 origin-center"
+            />
+          </div>
 
           {/* Animated Subtitle */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="relative h-12 xs:h-16 md:h-20 overflow-hidden"
-          >
-            {subtitles.map((subtitle, index) => (
+          <div className="relative h-12 xs:h-16 md:h-24 overflow-hidden mt-8">
+            <AnimatePresence mode="wait">
               <motion.h2
-                key={index}
-                className={`absolute inset-0 text-xl xs:text-2xl md:text-4xl lg:text-5xl font-light text-white flex items-center justify-center text-center px-4 ${
-                  index === currentSubtitle ? 'opacity-100' : 'opacity-0'
-                }`}
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ 
-                  y: index === currentSubtitle ? 0 : -30, 
-                  opacity: index === currentSubtitle ? 1 : 0 
-                }}
-                transition={{ 
-                  duration: 0.5, 
-                  ease: "easeInOut"
-                }}
+                key={currentSubtitle}
+                initial={{ y: 40, opacity: 0, scale: 0.95 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: -40, opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 text-lg xs:text-xl md:text-4xl font-light text-white/50 flex items-center justify-center text-center px-4 tracking-[0.2em] uppercase italic"
               >
-                {subtitle}
+                {subtitles[currentSubtitle]}
               </motion.h2>
-            ))}
-          </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-base md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-light px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 1.5 }}
+            className="text-sm md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed font-extralight px-4 mt-6 tracking-wide"
           >
-           ahmad full stack developer
+            Crafting the future of digital experiences with code and aesthetic precision.
           </motion.p>
 
-          {/* CTA Button - Liquid Glass Effect */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="flex justify-center items-center pt-6 md:pt-8"
-          >
-            <LiquidButton
-              onClick={scrollToContact}
-              className="px-6 py-3 md:px-8 md:py-4 text-white font-medium text-base md:text-lg rounded-xl md:rounded-2xl"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="flex items-center space-x-2 z-10">
-                <Mail size={18} className="md:w-5 md:h-5" />
-                <span>Get In Touch</span>
-              </div>
-            </LiquidButton>
-          </motion.div>
         </motion.div>
       </motion.div>
     </section>

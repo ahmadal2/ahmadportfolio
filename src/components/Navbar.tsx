@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { MenuVertical } from "./ui/menu-vertical";
+import { GlowingEffect } from "./ui/glowing-effect";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,11 +12,11 @@ const Navbar: React.FC = () => {
   const navbarRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
-    { name: "Home", href: "hero", color: "#3DFF54" },
-    { name: "About", href: "about", color: "#A3C4F0" },
-    { name: "Skills", href: "skills", color: "#7EE8FA" },
-    { name: "Projects", href: "demo-archive", color: "#297BFF" },
-    { name: "Contact", href: "contact", color: "#FF9966" },
+    { name: "Home", href: "hero", color: "#22d3ee" },
+    { name: "About", href: "about", color: "#7EE8FA" },
+    { name: "Skills", href: "skills", color: "#0ea5e9" },
+    { name: "Projects", href: "demo-archive", color: "#3b82f6" },
+    { name: "Contact", href: "contact", color: "#a5f3fc" },
   ];
 
   useEffect(() => {
@@ -55,79 +57,102 @@ const Navbar: React.FC = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", damping: 18, stiffness: 80 }}
           className={cn(
-            "pointer-events-auto relative flex items-center px-4 py-2 rounded-full",
-            "transition-all duration-700 ease-in-out border backdrop-blur-3xl",
+            "pointer-events-auto relative flex items-center justify-between w-full max-w-5xl px-8 py-3 rounded-full",
+            "transition-all duration-700 ease-in-out border backdrop-blur-xl",
+            "hidden md:flex", // Hide centered pill on mobile
             scrolled
-              ? "bg-black/40 border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] scale-95"
-              : "bg-white/5 border-white/10 shadow-none scale-100"
+              ? "bg-black/80 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] scale-95"
+              : "bg-white/[0.03] border-white/[0.08] shadow-none scale-100"
           )}
         >
-          {/* Futuristic Spotlight Effect */}
-          <div
-            className="absolute inset-0 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden"
-            style={{
-              background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.06), transparent 40%)`
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
+          {/* Cinematic Texture & Spotlight */}
+          <div className="absolute inset-0 rounded-full opacity-10 pointer-events-none overflow-hidden mix-blend-soft-light">
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
           </div>
 
+          {/* Logo Section */}
+          <div className="flex items-center gap-2 group cursor-pointer z-10" onClick={() => scrollToSection('hero')}>
+            <div className="size-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee] animate-pulse" />
+            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white transition-opacity group-hover:opacity-70">
+              AHMAD
+            </span>
+          </div>
+
+          <div
+            className="absolute inset-0 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none overflow-hidden"
+            style={{
+              background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(34, 211, 238, 0.08), transparent 60%)`
+            }}
+          />
+
           {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="flex items-center gap-6 lg:gap-8 relative">
             {navItems.map((item, index) => (
-              <motion.button
+              <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative px-5 py-2.5 rounded-full group transition-all duration-300"
+                onMouseEnter={() => setMousePosition({ ...mousePosition })} // Trigger hover state
+                className="relative py-2 group transition-all duration-300"
               >
-                <span className="relative z-10 text-xs lg:text-sm font-bold tracking-widest uppercase text-white/50 group-hover:text-white transition-all duration-300">
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400 group-hover:text-white transition-colors duration-300">
                   {item.name}
                 </span>
 
-                {/* Magnetic Hover Background */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 rounded-full blur-sm transition-all duration-500"
-                  layoutId="nav-bg"
+                {/* Sliding indicator - only if we had an 'active' state, but user wants 'more modern' deskop layout */}
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-[1px] bg-cyan-400 transition-all duration-500 group-hover:w-full opacity-0 group-hover:opacity-100"
+                  style={{ boxShadow: "0 0 10px #22d3ee" }}
                 />
-
-                {/* 2026 Glowing Indicator */}
-                <div
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-1 rounded-full bg-white opacity-0 group-hover:w-4 group-hover:opacity-100 transition-all duration-500"
-                  style={{
-                    backgroundColor: item.color,
-                    boxShadow: `0 0 15px 2px ${item.color}`
-                  }}
-                />
-              </motion.button>
+              </button>
             ))}
-
-            {/* Premium Button at the end */}
-            <div className="ml-4 border-l border-white/10 pl-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('contact')}
-                className="px-6 py-2 bg-white text-black text-xs font-black uppercase tracking-tighter rounded-full hover:bg-white/90 transition-colors"
-              >
-                Hire Me
-              </motion.button>
-            </div>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center p-1">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="relative p-3 text-white transition-opacity duration-300 active:opacity-50 glass-light rounded-full border border-white/10"
-              aria-label="Toggle Menu"
+          {/* Premium CTA Button */}
+          <div className="flex items-center">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(34, 211, 238, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('contact')}
+              className={cn(
+                "px-7 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] rounded-full transition-all duration-500",
+                "bg-white text-black hover:bg-cyan-500 hover:text-white border border-transparent hover:border-cyan-300/50"
+              )}
             >
-              {isOpen ? <X size={20} className="relative z-50 text-white" /> : <Menu size={20} />}
-            </button>
+              Connect
+            </motion.button>
           </div>
         </motion.div>
       </nav>
+
+      {/* Mobile Right-Side Toggle - 2026 Aesthetic */}
+      <div className="md:hidden fixed top-6 right-6 z-[120]">
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", damping: 15, stiffness: 200 }}
+          className="relative rounded-full p-[2px] overflow-hidden group"
+        >
+          <GlowingEffect
+            blur={20}
+            proximity={64}
+            spread={80}
+            variant="default"
+            glow={true}
+            disabled={false}
+          />
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={cn(
+              "relative z-10 flex items-center justify-center size-14 rounded-full border border-white/20",
+              "bg-black/60 backdrop-blur-xl transition-all duration-500",
+              isOpen ? "rotate-[225deg] bg-white text-black" : "rotate-0 text-white"
+            )}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X size={28} strokeWidth={3} /> : <Plus size={28} strokeWidth={3} />}
+          </button>
+        </motion.div>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
@@ -135,45 +160,28 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[110] bg-black/80 md:hidden flex items-center justify-center p-6 backdrop-blur-2xl h-screen overflow-hidden"
+            transition={{ duration: 0.5, ease: "circOut" }}
+            className="fixed inset-0 z-[110] bg-black/90 md:hidden flex items-center justify-center p-6 backdrop-blur-3xl h-screen overflow-hidden"
           >
+            {/* 2026 Background Glows for Mobile Menu */}
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
+
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="w-full max-w-sm glass-strong border border-white/20 rounded-[40px] p-8 space-y-6 relative overflow-hidden"
+              initial={{ x: 100, opacity: 0, skewX: 10 }}
+              animate={{ x: 0, opacity: 1, skewX: 0 }}
+              exit={{ x: -100, opacity: 0, skewX: -10 }}
+              transition={{ type: "spring", damping: 20, stiffness: 100 }}
+              className="w-full flex items-center justify-center p-6 relative z-10"
             >
-              {/* Decorative background light for mobile menu */}
-              <div className="absolute -top-20 -left-20 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl" />
-              <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl" />
-
-              <div className="flex flex-col gap-4 relative z-10">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.name}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                    onClick={() => scrollToSection(item.href)}
-                    className="group flex items-center justify-between p-4 rounded-3xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all"
-                  >
-                    <span className="text-xl font-black italic tracking-tighter text-white/40 group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
-                      {item.name}
-                    </span>
-                    <div
-                      className="w-3 h-3 rounded-full group-hover:scale-150 transition-transform duration-500 shadow-[0_0_20px_rgba(255,255,255,0.5)]"
-                      style={{ backgroundColor: item.color }}
-                    />
-                  </motion.button>
-                ))}
-              </div>
-
-              <button
-                onClick={() => setIsOpen(false)}
-                className="w-full py-4 text-xs font-bold uppercase tracking-[0.3em] text-white/30 hover:text-white transition-colors"
-              >
-                Close Menu
-              </button>
+              <MenuVertical
+                menuItems={navItems.map(item => ({ label: item.name, href: item.href }))}
+                color="#22d3ee"
+                onItemClick={(href) => {
+                  setIsOpen(false);
+                  setTimeout(() => scrollToSection(href), 300);
+                }}
+              />
             </motion.div>
           </motion.div>
         )}

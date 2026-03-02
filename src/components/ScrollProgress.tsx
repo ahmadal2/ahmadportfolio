@@ -4,7 +4,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 
 const ScrollProgress: React.FC = () => {
   const { scrollYProgress } = useScroll()
-  
+
   // Optimize spring configuration for better performance
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 50,   // Reduced stiffness for smoother animation

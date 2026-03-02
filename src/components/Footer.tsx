@@ -95,41 +95,41 @@ const Footer: React.FC = () => {
 
           <div className="relative p-6 md:p-24 flex flex-col items-center text-center max-w-5xl mx-auto z-10">
             {/* Header Section */}
-            <div className="mb-10 md:mb-16">
+            <div className="mb-12 md:mb-20">
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="text-3xl md:text-7xl font-semibold text-white mb-6 md:mb-8 tracking-tight"
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl md:text-8xl font-black text-white mb-8 tracking-tighter uppercase italic"
               >
-                Let's Create Together
+                Let's Create<br />Together
               </motion.h2>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 0.7, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                className="text-white/60 text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto leading-relaxed px-4"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 0.6, scale: 1 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="text-white/60 text-xl md:text-3xl font-extralight tracking-tight max-w-3xl mx-auto leading-tight px-4"
               >
-                Ready to bring your vision to life? Let's discuss your next project and create something extraordinary together.
+                Ready to bring your vision to life? Let's discuss your next project and create something extraordinary.
               </motion.p>
             </div>
 
             {/* Contact Action Hub */}
-            <div className="w-full bg-white/[0.02] border border-white/[0.08] rounded-[24px] md:rounded-[32px] p-6 md:p-12 mb-12 backdrop-blur-md">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
+            <div className="w-full glass-obsidian rounded-[40px] p-8 md:p-16 mb-16 relative overflow-hidden">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
                 <div className="text-center md:text-left">
-                  <h3 className="text-xl md:text-2xl font-medium text-white mb-2">Get in Touch</h3>
-                  <p className="text-white/40 font-light text-base md:text-lg">Feel free to reach out directly.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">Direct Access</h3>
+                  <p className="text-white/30 font-light text-lg">Response within 24 hours.</p>
                 </div>
 
                 {/* Silver Glass Email Action */}
                 <motion.div
-                  whileHover={{ scale: 1.01 }}
-                  className="flex items-center gap-4 md:gap-6 px-5 py-4 md:px-8 md:py-5 rounded-2xl bg-white/[0.05] border border-white/10 group/email cursor-pointer transition-colors hover:bg-white/[0.08] w-full md:w-auto justify-center"
+                  whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.08)" }}
+                  className="flex items-center gap-6 px-10 py-6 rounded-3xl bg-white/5 border border-white/10 group/email cursor-pointer transition-all duration-500 w-full md:w-auto justify-center"
                   onClick={() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=ahmed.aa.ss748@gmail.com', '_blank')}
                 >
-                  <Mail className="w-5 h-5 md:w-6 md:h-6 text-white/70" />
-                  <span className="font-mono text-base md:text-xl text-white/90 tracking-wide break-all">ahmed.aa.ss748@gmail.com</span>
+                  <Mail className="w-6 h-6 text-cyan-400" />
+                  <span className="font-mono text-xl md:text-2xl text-white/90 tracking-tighter truncate">ahmed.aa.ss748@gmail.com</span>
                 </motion.div>
               </div>
 

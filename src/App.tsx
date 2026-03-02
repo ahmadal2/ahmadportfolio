@@ -9,11 +9,11 @@ import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
 import SmoothScroll from './components/SmoothScroll'
 import CinematicIntro from './components/CinematicIntro'
-import CustomCursor from './components/CustomCursor'
 import DemoOne from './components/DemoOne'
 import ModernLEDSeparator from './components/ModernLEDSeparator'
 import LampSection from './components/LampSection'
-import AuroraBackground from './components/AuroraBackground'
+import Aurora from './components/Aurora'
+import LightPillar from './components/ui/light-pillar'
 import { usePerformance } from './hooks/usePerformance'
 
 
@@ -21,7 +21,6 @@ function App() {
   const [showIntro, setShowIntro] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [currentSection, setCurrentSection] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
   const [darkMode, setDarkMode] = useState(true)
   const { isLowEnd } = usePerformance()
 
@@ -45,17 +44,7 @@ function App() {
       setShowIntro(false)
     }
 
-    // Check if device is mobile
-    const checkIfMobile = () => {
-      const mobile = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-      setIsMobile(mobile)
-    }
-
-    checkIfMobile()
-    window.addEventListener('resize', checkIfMobile, { passive: true }) // Passive listener for performance
-
     return () => {
-      window.removeEventListener('resize', checkIfMobile)
     }
   }, [])
 
@@ -68,6 +57,37 @@ function App() {
     setShowIntro(true)
     localStorage.removeItem('introShown')
   }, [])
+
+  // Update current section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      // Use a slightly offset position to feel more natural (1/3rd down the viewport)
+      const scrollPosition = window.scrollY + window.innerHeight / 3
+
+      let activeIndex = 0
+      sections.forEach((section, index) => {
+        const element = document.getElementById(section.id)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          // Check if current scroll is within this section
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            activeIndex = index
+          }
+        }
+      })
+
+      if (activeIndex !== currentSection) {
+        setCurrentSection(activeIndex)
+      }
+    }
+
+    // Use passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    // Initial check
+    handleScroll()
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [sections, currentSection])
 
   const navigateToSection = useCallback((index: number) => {
     setCurrentSection(index)
@@ -97,19 +117,36 @@ function App() {
 
   const appBody = (
     <div className="relative min-h-screen bg-remix overflow-x-hidden">
-      <AuroraBackground
-        colorStops={["#3DFF54", "#A3C4F0", "#297BFF"]}
-        blend={isLowEnd ? 0.2 : 0.5}
-        amplitude={isLowEnd ? 0.2 : 0.5}
-        speed={isLowEnd ? 0.1 : 0.2}
-        isLowEnd={isLowEnd}
-      />
+      <div className="aurora-background">
+        <Aurora
+          colorStops={["#7cff67", "#a3d6f0", "#2942ff"]}
+          blend={isLowEnd ? 0.2 : 0.5}
+          amplitude={isLowEnd ? 0.5 : 1.0}
+          speed={isLowEnd ? 0.5 : 1}
+        />
+      </div>
+
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <LightPillar
+          topColor="#295eff"
+          bottomColor="#9edaff"
+          intensity={1}
+          rotationSpeed={0.3}
+          glowAmount={0.002}
+          pillarWidth={3}
+          pillarHeight={0.4}
+          noiseIntensity={0.5}
+          pillarRotation={25}
+          interactive={false}
+          mixBlendMode="screen"
+          quality={isLowEnd ? "low" : "high"}
+        />
+      </div>
 
       <ScrollProgress />
 
-      {!isLowEnd && !isMobile && <CustomCursor />}
 
-      <div className="book-nav">
+      <div className="book-nav hidden xl:flex">
         {sections.map((section, index) => (
           <motion.div
             key={section.id}
@@ -118,6 +155,7 @@ function App() {
             whileHover={isLowEnd ? {} : { scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
           >
+            <span className="nav-label">{section.name}</span>
             {currentSection === index && (
               <motion.div
                 layoutId="active-nav-glow"
@@ -147,7 +185,7 @@ function App() {
           transition={{ duration: isLowEnd ? 0.3 : 0.8 }}
           className="book-page content-wrapper"
         >
-          <Navbar />
+          <Navbar activeSection={currentSection} />
           <main>
             {mainContent}
           </main>

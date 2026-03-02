@@ -21,11 +21,22 @@
   --transition-speed: 0.3s;
 
   /* Rainbow button colors */
-  --color-1: 0 100% 63%;
-  --color-2: 270 100% 63%;
-  --color-3: 210 100% 63%;
-  --color-4: 195 100% 63%;
-  --color-5: 90 100% 63%;
+  /* 2026 Premium Palette */
+  --cyber-lime: #DFFF00;
+  --obsidian: #050505;
+  --silver-mist: rgba(255, 255, 255, 0.05);
+  --electric-blue: #297BFF;
+
+  --color-1: 60 100% 50%;
+  /* Lime */
+  --color-2: 210 100% 63%;
+  /* Blue */
+  --color-3: 160 100% 50%;
+  /* Emerald */
+  --color-4: 280 100% 70%;
+  /* Purple */
+  --color-5: 0 0% 100%;
+  /* White */
 }
 
 /* Add custom breakpoints for better mobile support */
@@ -310,6 +321,31 @@ body * {
     @apply max-w-7xl mx-auto;
   }
 
+  .glass-obsidian {
+    background: rgba(5, 5, 5, 0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-silver {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .kinetic-text {
+    @apply transition-all duration-700 ease-out;
+  }
+
+  .text-reveal {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
   .animate-pulse-slow {
     animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
@@ -344,12 +380,12 @@ body * {
 /* Enhanced book navigation styles */
 /* 2026 Liquid Sidebar Navigation */
 .book-nav {
+  display: none;
   position: fixed;
   right: 2rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 1.5rem;
@@ -362,6 +398,12 @@ body * {
     -10px 0 30px rgba(0, 0, 0, 0.2),
     inset 1px 1px 1px rgba(255, 255, 255, 0.05);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1280px) {
+  .book-nav {
+    display: flex;
+  }
 }
 
 .book-nav::before {

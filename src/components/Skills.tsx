@@ -135,15 +135,8 @@ const Skills: React.FC = () => {
               <div className="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                 <Globe size={20} className="text-blue-500 animate-pulse" />
               </div>
-              <div>
-                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.4em] block mb-1">Global Core</span>
-                <span className="text-xs font-black text-white uppercase italic tracking-widest leading-none">Technological Tracks</span>
-              </div>
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-white/5 via-white/10 to-transparent hidden md:block mx-12" />
-            <div className="text-right">
-              <span className="text-[9px] font-black text-green-500/60 uppercase tracking-widest italic">Node-Synchronized / Optimized</span>
-            </div>
           </div>
 
           <LogoLoop
@@ -159,17 +152,6 @@ const Skills: React.FC = () => {
           />
         </div>
 
-        {/* Global Footer */}
-        <div className="mt-32 pt-16 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 opacity-40">
-          <div className="flex items-center gap-4 text-white">
-            <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-ping" />
-            <span className="text-[8px] font-black uppercase tracking-[0.4em]">System Pulse: Stable</span>
-          </div>
-          <div className="flex gap-8">
-            <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.4em]">Status: Cyber-Resilient</span>
-            <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.4em]">v2.26.01</span>
-          </div>
-        </div>
       </div>
     </section>
   );
