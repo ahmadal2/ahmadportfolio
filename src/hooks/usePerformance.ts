@@ -33,7 +33,7 @@ export function usePerformance(): PerformanceProfile {
             // Criteria: 
             // - Few CPU cores (<= 4) AND Low memory (<= 4GB)
             // - OR explicitly prefers reduced motion
-            const isLowEnd = (concurrency <= 4 && memory <= 4) || reducedMotion || (isMobile && concurrency <= 4);
+            const isLowEnd = (concurrency <= 4 && memory <= 4) || reducedMotion;
 
             setProfile({
                 isLowEnd,

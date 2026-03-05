@@ -105,7 +105,9 @@ function App() {
       <Skills />
       <DemoOne />
       <ModernLEDSeparator />
-      <LampSection />
+      <div className="hidden xl:block">
+        <LampSection />
+      </div>
       <Contact />
     </>
   ), [])
@@ -177,6 +179,7 @@ function App() {
         🎬 Replay Intro
       </motion.button>
 
+      <Navbar activeSection={currentSection} />
       <AnimatePresence mode="wait">
         <motion.div
           key="main-content"
@@ -185,7 +188,6 @@ function App() {
           transition={{ duration: isLowEnd ? 0.3 : 0.8 }}
           className="book-page content-wrapper"
         >
-          <Navbar activeSection={currentSection} />
           <main>
             {mainContent}
           </main>

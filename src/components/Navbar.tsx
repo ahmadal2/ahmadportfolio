@@ -5,7 +5,11 @@ import { cn } from "@/lib/utils";
 import { MenuVertical } from "./ui/menu-vertical";
 import { GlowingEffect } from "./ui/glowing-effect";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  activeSection?: number;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -24,6 +28,31 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Scroll lock implementation
+  useEffect(() => {
+    const html = document.documentElement;
+    const { body } = document;
+
+    if (isOpen) {
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      // On some mobile browsers, we need to fix the height to 100% as well
+      html.style.height = '100%';
+      body.style.height = '100%';
+    } else {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.style.height = '';
+      body.style.height = '';
+    }
+    return () => {
+      html.style.overflow = '';
+      body.style.overflow = '';
+      html.style.height = '';
+      body.style.height = '';
+    };
+  }, [isOpen]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!navbarRef.current) return;
@@ -71,11 +100,22 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Logo Section */}
-          <div className="flex items-center gap-2 group cursor-pointer z-10" onClick={() => scrollToSection('hero')}>
-            <div className="size-2 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee] animate-pulse" />
-            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-white transition-opacity group-hover:opacity-70">
-              AHMAD
-            </span>
+          <div className="flex items-center gap-3 group cursor-pointer z-10" onClick={() => scrollToSection('hero')}>
+            <div className="relative overflow-hidden rounded-lg">
+              <img
+                src="/images/logo/ahmad1.png"
+                alt="Ahmad Logo"
+                className="h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+              />
+              <motion.div
+                className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+            </div>
+            <div className="flex flex-col">
+                
+              
+              <div className="h-[1px] w-0 bg-cyan-400 group-hover:w-full transition-all duration-500 shadow-[0_0_10px_#22d3ee]" />
+            </div>
           </div>
 
           <div

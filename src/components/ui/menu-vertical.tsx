@@ -26,15 +26,16 @@ export const MenuVertical = ({
             {menuItems.map((item, index) => (
                 <motion.div
                     key={`${item.href}-${index}`}
-                    className="group/nav flex items-center gap-4 cursor-pointer text-zinc-900 dark:text-zinc-50"
+                    className="group/nav flex items-center gap-4 cursor-pointer text-cyan-400"
                     initial="initial"
                     whileHover="hover"
+                    whileTap={{ scale: 0.95, opacity: 0.8 }}
                     onClick={() => onItemClick?.(item.href)}
                 >
                     <motion.div
                         variants={{
-                            initial: { x: "-100%", color: "inherit", opacity: 0 },
-                            hover: { x: 0, color, opacity: 1 },
+                            initial: { x: "-100%", color: "#22d3ee", opacity: 0 },
+                            hover: { x: 0, color: "#22d3ee", opacity: 1 },
                         }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="z-0"
@@ -44,8 +45,8 @@ export const MenuVertical = ({
 
                     <motion.button
                         variants={{
-                            initial: { x: -40, color: "inherit" },
-                            hover: { x: 0, color, skewX: skew },
+                            initial: { x: -40, color: "#22d3ee" },
+                            hover: { x: 0, color: "#22d3ee", skewX: skew },
                         }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="font-black text-5xl md:text-7xl no-underline tracking-tighter uppercase italic text-left"
