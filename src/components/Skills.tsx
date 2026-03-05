@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Server,
   GitBranch,
-  Code,
-  Globe
+  Code
 } from "lucide-react";
 import LiquidFlipCard from "@/components/ui/flip-card";
 import LogoLoop from './LogoLoop';
@@ -98,20 +97,32 @@ const Skills: React.FC = () => {
         {/* Section Header */}
         <motion.div
           style={{ opacity }}
-          className="mb-32 flex flex-col md:flex-row items-end justify-between gap-12"
+          className="mb-16 flex flex-col md:flex-row items-end justify-between gap-12"
         >
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-transparent rounded-full" />
-            <span className="text-[10px] font-black text-blue-400 uppercase tracking-[1em] mb-4 block">Capabilities Gallery</span>
+            <span className="text-[10px] font-black text-blue-400 uppercase tracking-[1em] mb-4 block">Skills</span>
             <h2 className="text-6xl md:text-[8rem] font-black text-white italic tracking-tighter leading-[0.85] uppercase">
-              Technical<br /><span className="text-white/20">Arsenal</span>
+              Mastery &<br /><span className="text-white/20">Expertise</span>
             </h2>
           </div>
-
-          <div className="text-right hidden md:block">
-            <span className="text-[10px] font-black text-white/10 uppercase tracking-[0.5em]">Integrated Execution v2.26</span>
-          </div>
         </motion.div>
+
+        {/* Tech Stack Nucleus Track - Moved Above Grid */}
+        <div className="mb-24">
+          <LogoLoop
+            logos={techLogos}
+            speed={80}
+            direction="left"
+            logoHeight={34}
+            gap={48}
+            pauseOnHover
+            scaleOnHover
+            fadeOut
+            fadeOutColor="rgba(0,0,0,0)"
+          />
+          <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        </div>
 
         {/* 3-Column Flip Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-6xl mx-auto mb-48">
@@ -127,31 +138,6 @@ const Skills: React.FC = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Tech Stack Nucleus Track */}
-        <div className="pt-24 border-t border-white/5">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-16 px-4">
-            <div className="flex items-center gap-6">
-              <div className="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                <Globe size={20} className="text-blue-500 animate-pulse" />
-              </div>
-            </div>
-            <div className="h-px flex-1 bg-gradient-to-r from-white/5 via-white/10 to-transparent hidden md:block mx-12" />
-          </div>
-
-          <LogoLoop
-            logos={techLogos}
-            speed={80}
-            direction="left"
-            logoHeight={34}
-            gap={48}
-            pauseOnHover
-            scaleOnHover
-            fadeOut
-            fadeOutColor="rgba(0,0,0,0)"
-          />
-        </div>
-
       </div>
     </section>
   );

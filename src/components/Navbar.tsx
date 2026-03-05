@@ -112,8 +112,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               />
             </div>
             <div className="flex flex-col">
-                
-              
+
+
               <div className="h-[1px] w-0 bg-cyan-400 group-hover:w-full transition-all duration-500 shadow-[0_0_10px_#22d3ee]" />
             </div>
           </div>
@@ -158,7 +158,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
                 "bg-white text-black hover:bg-cyan-500 hover:text-white border border-transparent hover:border-cyan-300/50"
               )}
             >
-              Connect
+              Contact
             </motion.button>
           </div>
         </motion.div>

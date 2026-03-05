@@ -12,7 +12,6 @@ import CinematicIntro from './components/CinematicIntro'
 import DemoOne from './components/DemoOne'
 import ModernLEDSeparator from './components/ModernLEDSeparator'
 import LampSection from './components/LampSection'
-import Aurora from './components/Aurora'
 import LightPillar from './components/ui/light-pillar'
 import { usePerformance } from './hooks/usePerformance'
 
@@ -119,14 +118,7 @@ function App() {
 
   const appBody = (
     <div className="relative min-h-screen bg-remix overflow-x-hidden">
-      <div className="aurora-background">
-        <Aurora
-          colorStops={["#7cff67", "#a3d6f0", "#2942ff"]}
-          blend={isLowEnd ? 0.2 : 0.5}
-          amplitude={isLowEnd ? 0.5 : 1.0}
-          speed={isLowEnd ? 0.5 : 1}
-        />
-      </div>
+
 
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <LightPillar
