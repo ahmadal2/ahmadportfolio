@@ -20,6 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     { name: "About", href: "about", color: "#7EE8FA" },
     { name: "Skills", href: "skills", color: "#0ea5e9" },
     { name: "Projects", href: "demo-archive", color: "#3b82f6" },
+    { name: "Services", href: "services", color: "#a5f3fc" },
     { name: "Contact", href: "contact", color: "#a5f3fc" },
   ];
 

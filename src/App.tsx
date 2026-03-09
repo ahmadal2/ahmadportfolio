@@ -29,6 +29,7 @@ function App() {
     { id: 'about', name: 'About' },
     { id: 'skills', name: 'Skills' },
     { id: 'demo-archive', name: 'Archive' },
+    { id: 'services', name: 'Services' },
     { id: 'contact', name: 'Contact' }
   ], [])
 

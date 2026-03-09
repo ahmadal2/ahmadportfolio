@@ -102,7 +102,7 @@ const Skills: React.FC = () => {
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-transparent rounded-full" />
             <span className="text-[10px] font-black text-blue-400 uppercase tracking-[1em] mb-4 block">Skills</span>
-            <h2 className="text-6xl md:text-[8rem] font-black text-white italic tracking-tighter leading-[0.85] uppercase">
+            <h2 className="text-4xl xs:text-5xl md:text-[8rem] font-black text-white italic tracking-tighter leading-[0.85] uppercase">
               Mastery &<br /><span className="text-white/20">Expertise</span>
             </h2>
           </div>

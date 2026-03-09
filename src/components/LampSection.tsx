@@ -23,7 +23,7 @@ export default function LampSection() {
                         className={isLowEnd ? "" : "absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 opacity-75 blur-lg group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"}
                     />
                     <motion.button
-                        className="relative inline-flex h-20 items-center justify-center overflow-hidden rounded-full bg-black px-12 font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-neutral-900 border border-white/10"
+                        className="relative inline-flex h-16 md:h-20 items-center justify-center overflow-hidden rounded-full bg-black px-6 md:px-12 font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-neutral-900 border border-white/10"
                         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                         whileHover={isLowEnd ? {} : { scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -45,7 +45,7 @@ export default function LampSection() {
                             />
                         </div>
 
-                        <span className="relative text-2xl font-black uppercase tracking-[0.2em] mr-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
+                        <span className="relative text-lg md:text-2xl font-black uppercase tracking-[0.2em] mr-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
                             Your Website Is Next
                         </span>
                         <motion.div

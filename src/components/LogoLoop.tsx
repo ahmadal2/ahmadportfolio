@@ -371,8 +371,8 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             'mask-image-[linear-gradient(to_right,transparent_0%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_10%,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_90%,transparent_100%)]'
           )}
         >
-          {/* Liquid Track Background */}
-          <div className="absolute inset-y-4 left-0 right-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+          {/* Liquid Track Background - Hidden on mobile for performance */}
+          <div className="absolute inset-y-4 left-0 right-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 hidden md:block">
             <svg className="absolute inset-0 w-full h-full overflow-visible">
               <defs>
                 <filter id="liquid-track-glow">

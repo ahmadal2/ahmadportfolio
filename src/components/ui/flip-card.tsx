@@ -43,7 +43,7 @@ export default function CardFlip({
       style={{
         ['--primary' as any]: color ?? '#2563eb',
       }}
-      className="group relative h-[450px] w-full max-w-[340px] [perspective:2000px] cursor-pointer"
+      className="group relative h-[400px] sm:h-[450px] w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[340px] mx-auto [perspective:2000px] cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)}
@@ -83,8 +83,8 @@ export default function CardFlip({
             style={{ backgroundSize: '200% 100%' }}
           />
 
-          {/* Morphing Liquid Border (Front) */}
-          <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-1000">
+          {/* Morphing Liquid Border (Front) - Hidden on mobile for performance */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-1000 hidden md:block">
             <svg className="absolute inset-0 w-full h-full">
               <defs>
                 <filter id={`liquid-morph-${title.replace(/\s+/g, '-')}`}>
@@ -107,7 +107,7 @@ export default function CardFlip({
           </div>
 
           {/* Content Container */}
-          <div className="relative z-20 h-full flex flex-col p-10">
+          <div className="relative z-20 h-full flex flex-col p-6 sm:p-10">
             {/* Top Icon Block */}
             <div className="flex-1 flex flex-col items-center justify-center">
               <div className="relative mb-10">
@@ -149,7 +149,7 @@ export default function CardFlip({
           className={cn(
             'absolute inset-0 h-full w-full',
             '[transform:rotateY(180deg)] [backface-visibility:hidden]',
-            'rounded-[3rem] p-10',
+            'rounded-[3rem] p-6 sm:p-10',
             'backdrop-blur-3xl bg-white/[0.02]',
             'border border-white/10',
             'flex flex-col',
