@@ -31,9 +31,10 @@ export function usePerformance(): PerformanceProfile {
 
             // 4. Determine if Low End
             // Criteria: 
-            // - Few CPU cores (<= 4) AND Low memory (<= 4GB)
+            // - Few CPU cores (<= 2) AND Low memory (<= 2GB)
             // - OR explicitly prefers reduced motion
-            const isLowEnd = (concurrency <= 4 && memory <= 4) || reducedMotion;
+            // We reduced the threshold for core/memory to allow more "mid-range" phones to experience full animations.
+            const isLowEnd = (concurrency <= 2 && memory <= 2) || reducedMotion;
 
             setProfile({
                 isLowEnd,

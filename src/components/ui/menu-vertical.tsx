@@ -28,28 +28,37 @@ export const MenuVertical = ({
                     key={`${item.href}-${index}`}
                     className="group/nav flex items-center gap-4 cursor-pointer text-cyan-400"
                     initial="initial"
+                    animate="animate"
                     whileHover="hover"
                     whileTap={{ scale: 0.95, opacity: 0.8 }}
                     onClick={() => onItemClick?.(item.href)}
                 >
                     <motion.div
                         variants={{
-                            initial: { x: "-100%", color: "#22d3ee", opacity: 0 },
+                            initial: { x: -20, opacity: 0 },
+                            animate: {
+                                x: 0,
+                                opacity: 1,
+                                transition: { delay: 0.1 * index + 0.3, duration: 0.5 }
+                            },
                             hover: { x: 0, color: "#22d3ee", opacity: 1 },
                         }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="z-0"
+                        className="z-0 hidden xs:block"
                     >
-                        <ArrowRight strokeWidth={3} className="size-10" />
+                        <ArrowRight strokeWidth={4} className="size-10" />
                     </motion.div>
 
                     <motion.button
                         variants={{
-                            initial: { x: -40, color: "#22d3ee" },
+                            initial: { x: -40, opacity: 0 },
+                            animate: {
+                                x: 0,
+                                opacity: 1,
+                                transition: { delay: 0.1 * index + 0.2, duration: 0.6 }
+                            },
                             hover: { x: 0, color: "#22d3ee", skewX: skew },
                         }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="font-black text-5xl md:text-7xl no-underline tracking-tighter uppercase italic text-left"
+                        className="font-[950] text-5xl xs:text-6xl md:text-8xl no-underline tracking-[-0.05em] uppercase italic text-left"
                     >
                         {item.label}
                     </motion.button>

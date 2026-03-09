@@ -97,13 +97,13 @@ const Skills: React.FC = () => {
         {/* Section Header */}
         <motion.div
           style={{ opacity }}
-          className="mb-16 flex flex-col md:flex-row items-end justify-between gap-12"
+          className="mb-12 md:mb-20 flex flex-col md:flex-row items-end justify-between gap-8 md:gap-12"
         >
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-transparent rounded-full" />
-            <span className="text-[10px] font-black text-blue-400 uppercase tracking-[1em] mb-4 block">Skills</span>
-            <h2 className="text-4xl xs:text-5xl md:text-[8rem] font-black text-white italic tracking-tighter leading-[0.85] uppercase">
-              Mastery &<br /><span className="text-white/20">Expertise</span>
+            <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.8em] mb-3 block">Expertise</span>
+            <h2 className="text-5xl md:text-[8rem] font-[950] text-white italic tracking-tighter leading-[0.85] uppercase">
+              Mastery &<br /><span className="text-white/20">Knowledge</span>
             </h2>
           </div>
         </motion.div>
