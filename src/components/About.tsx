@@ -18,8 +18,8 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 md:mb-20"
         >
-          <h2 className="text-4xl md:text-section font-black tracking-tighter uppercase italic text-white mb-4">About Me</h2>
-          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed px-4 font-light">
+          <h2 className="text-3xl md:text-section font-bold text-white drop-shadow-2xl mb-4 md:mb-6">About Me</h2>
+          <p className="text-base md:text-xl text-white max-w-3xl mx-auto leading-relaxed px-4">
             Passionate about creating digital experiences that inspire and delight.
             With over 1 year of experience, I bridge the gap between design and technology.
           </p>
@@ -68,17 +68,10 @@ const About: React.FC = () => {
                 { label: "Tech", value: "Full Stack" },
                 { label: "Design", value: "Premium" }
               ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="space-y-1"
-                >
-                  <div className="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">{stat.label}</div>
-                  <div className="text-white text-xl font-black">{stat.value}</div>
-                </motion.div>
+                <div key={i} className="space-y-1">
+                  <div className="text-white/30 text-xs uppercase tracking-widest">{stat.label}</div>
+                  <div className="text-white text-xl font-bold">{stat.value}</div>
+                </div>
               ))}
             </div>
           </motion.div>

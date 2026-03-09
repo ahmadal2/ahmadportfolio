@@ -36,22 +36,15 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
     const { body } = document;
 
     if (isOpen) {
-      html.style.overflow = 'hidden';
       body.style.overflow = 'hidden';
-      // On some mobile browsers, we need to fix the height to 100% as well
-      html.style.height = '100%';
-      body.style.height = '100%';
+      body.style.touchAction = 'none';
     } else {
-      html.style.overflow = '';
       body.style.overflow = '';
-      html.style.height = '';
-      body.style.height = '';
+      body.style.touchAction = '';
     }
     return () => {
-      html.style.overflow = '';
       body.style.overflow = '';
-      html.style.height = '';
-      body.style.height = '';
+      body.style.touchAction = '';
     };
   }, [isOpen]);
 
@@ -202,58 +195,28 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "circOut" }}
-            className="fixed inset-0 z-[110] bg-black/95 md:hidden flex flex-col items-center justify-between p-12 backdrop-blur-3xl h-[100dvh] overflow-hidden"
+            className="fixed inset-0 z-[110] bg-black/90 md:hidden flex items-center justify-center p-6 backdrop-blur-3xl h-screen overflow-hidden"
           >
             {/* 2026 Background Glows for Mobile Menu */}
-            <div className="absolute top-1/4 -left-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-[100px] animate-pulse" />
-            <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-600/20 rounded-full blur-[100px] animate-pulse" />
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
 
-            {/* Top Meta Info */}
-            <div className="w-full flex justify-between items-start relative z-10 pt-4">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-black tracking-[0.3em] uppercase text-cyan-400">Edition</span>
-                <span className="text-lg font-bold text-white">2026 // V2.0</span>
-              </div>
-              <div className="flex flex-col items-end gap-2">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
-                  <div className="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
-                  <span className="text-[8px] font-black tracking-widest uppercase text-cyan-400">Available for Work</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Menu Links */}
             <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -50, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 120 }}
-              className="w-full flex items-center justify-center relative z-10 py-12"
+              initial={{ x: 100, opacity: 0, skewX: 10 }}
+              animate={{ x: 0, opacity: 1, skewX: 0 }}
+              exit={{ x: -100, opacity: 0, skewX: -10 }}
+              transition={{ type: "spring", damping: 20, stiffness: 100 }}
+              className="w-full flex items-center justify-center p-6 relative z-10"
             >
               <MenuVertical
                 menuItems={navItems.map(item => ({ label: item.name, href: item.href }))}
                 color="#22d3ee"
                 onItemClick={(href) => {
                   setIsOpen(false);
-                  setTimeout(() => scrollToSection(href), 400);
+                  setTimeout(() => scrollToSection(href), 300);
                 }}
               />
             </motion.div>
-
-            {/* Bottom Meta Info */}
-            <div className="w-full border-t border-white/10 pt-8 mt-auto relative z-10 flex flex-col gap-4">
-              <div className="flex justify-between items-center text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">
-                <span>Navigation</span>
-                <span>Select a Destination</span>
-              </div>
-              <div className="flex gap-4">
-                {['LinkedIn', 'GitHub', 'Twitter'].map(social => (
-                  <span key={social} className="text-[10px] font-bold tracking-widest text-white/20 hover:text-cyan-400 transition-colors cursor-pointer capitalize">
-                    {social}
-                  </span>
-                ))}
-              </div>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
